@@ -1,0 +1,8 @@
+.DS_Store
+*/build/*
+.swiftpm
+/*.xcodeproj
+xcuserdata/
+.build
+bin
+/.vscode

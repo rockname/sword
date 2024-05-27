@@ -1,0 +1,67 @@
+# https://github.com/actions/virtual-environments
+
+name: test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  DEVELOPER_DIR: /Applications/Xcode_15.2.app
+
+jobs:
+  test:
+    name: Test
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test library
+        run: swift test
+
+  build_examples:
+    name: Build examples
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build SwiftPMBased example
+        run: |
+          xcodebuild \
+            -project Examples/SwiftPMBased/SNS.xcodeproj \
+            -scheme SNS \
+            -destination 'platform=iOS Simulator,name=iPhone 15 Pro Max' \
+            -configuration Debug \
+            clean build
+      - name: Build XcodeBased example
+        run: |
+          xcodebuild \
+            -project Examples/XcodeBased/Todos.xcodeproj \
+            -scheme Todos \
+            -destination 'platform=iOS Simulator,name=iPhone 15 Pro Max' \
+            -configuration Debug \
+            clean build
+
+  validation:
+    name: Validation
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cache tools
+        uses: actions/cache@v4
+        id: tools-cache
+        with:
+          path: Tools/.build
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Tools/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+      - name: Build tools
+        if: steps.tools-cache.outputs.cache-hit != 'true'
+        run: make build-tools
+      - name: Validate lint
+        run: make lint
+      - name: Validate format
+        run: |
+          make format
+          if [ -n "$(git status --porcelain)" ]; then git diff && echo "Make sure that the code is formated by 'make format'."; exit 1; fi
