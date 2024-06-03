@@ -1,3 +1,4 @@
+import ComponentApp
 import Foundation
 import Sword
 
@@ -5,12 +6,12 @@ import Sword
   registeredTo: AppComponent.self,
   scopedWith: .single
 )
-final class APIClient {
+public final class APIClient {
   private let urlSession: URLSession
   private let jsonDecoder: JSONDecoder
 
   @Injected
-  init(
+  public init(
     urlSession: URLSession,
     jsonDecoder: JSONDecoder
   ) {

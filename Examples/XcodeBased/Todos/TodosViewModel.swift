@@ -1,3 +1,4 @@
+import ComponentApp
 import Observation
 import Sword
 

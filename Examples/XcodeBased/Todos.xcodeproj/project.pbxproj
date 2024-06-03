@@ -9,24 +9,76 @@
 /* Begin PBXBuildFile section */
 		CA6829DB2C02FEC000CA0FED /* TodosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6829DA2C02FEC000CA0FED /* TodosViewModel.swift */; };
 		CA6829EA2C03023F00CA0FED /* Sword in Frameworks */ = {isa = PBXBuildFile; productRef = CA6829E92C03023F00CA0FED /* Sword */; };
-		CAA1A1CA2C0321E100AB2D00 /* AppComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA1A1C92C0321E100AB2D00 /* AppComponent.swift */; };
+		CA89899B2C0D33B2003F8980 /* DataAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = CA89899A2C0D33B2003F8980 /* DataAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CA89899E2C0D33B2003F8980 /* DataAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA8989982C0D33B2003F8980 /* DataAPI.framework */; };
+		CA8989A02C0D33B2003F8980 /* DataAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CA8989982C0D33B2003F8980 /* DataAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CA8989A42C0D33C7003F8980 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA1A1D22C03248200AB2D00 /* APIClient.swift */; };
+		CA8989AE2C0D33FA003F8980 /* ComponentApp.h in Headers */ = {isa = PBXBuildFile; fileRef = CA8989AD2C0D33FA003F8980 /* ComponentApp.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CA8989B12C0D33FA003F8980 /* ComponentApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA8989AB2C0D33FA003F8980 /* ComponentApp.framework */; };
+		CA8989B22C0D33FA003F8980 /* ComponentApp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CA8989AB2C0D33FA003F8980 /* ComponentApp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CA8989B62C0D3400003F8980 /* AppComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA1A1C92C0321E100AB2D00 /* AppComponent.swift */; };
+		CA8989B72C0D341C003F8980 /* Modules.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA1A1D42C0324ED00AB2D00 /* Modules.swift */; };
+		CA8989BD2C0D34B7003F8980 /* Sword in Frameworks */ = {isa = PBXBuildFile; productRef = CA8989BC2C0D34B7003F8980 /* Sword */; };
+		CA8989BF2C0D34D0003F8980 /* Sword in Frameworks */ = {isa = PBXBuildFile; productRef = CA8989BE2C0D34D0003F8980 /* Sword */; };
 		CAA1A1CE2C0323B400AB2D00 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA1A1CD2C0323B400AB2D00 /* Todo.swift */; };
 		CAA1A1D12C03246F00AB2D00 /* TodosRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA1A1D02C03246F00AB2D00 /* TodosRepository.swift */; };
-		CAA1A1D32C03248200AB2D00 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA1A1D22C03248200AB2D00 /* APIClient.swift */; };
-		CAA1A1D52C0324ED00AB2D00 /* Modules.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA1A1D42C0324ED00AB2D00 /* Modules.swift */; };
 		CAD680782C02FCB40083FAEC /* TodosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD680772C02FCB40083FAEC /* TodosApp.swift */; };
 		CAD6807A2C02FCB40083FAEC /* TodosScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD680792C02FCB40083FAEC /* TodosScreen.swift */; };
 		CAD6807C2C02FCB50083FAEC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAD6807B2C02FCB50083FAEC /* Assets.xcassets */; };
 		CAD6807F2C02FCB50083FAEC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAD6807E2C02FCB50083FAEC /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		CA89899C2C0D33B2003F8980 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CAD6806C2C02FCB40083FAEC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CA8989972C0D33B2003F8980;
+			remoteInfo = DataAPI;
+		};
+		CA8989AF2C0D33FA003F8980 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CAD6806C2C02FCB40083FAEC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CA8989AA2C0D33FA003F8980;
+			remoteInfo = ComponentApp;
+		};
+		CA8989B92C0D343B003F8980 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CAD6806C2C02FCB40083FAEC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CA8989AA2C0D33FA003F8980;
+			remoteInfo = ComponentApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CA89899F2C0D33B2003F8980 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CA8989B22C0D33FA003F8980 /* ComponentApp.framework in Embed Frameworks */,
+				CA8989A02C0D33B2003F8980 /* DataAPI.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		CA6829DA2C02FEC000CA0FED /* TodosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodosViewModel.swift; sourceTree = "<group>"; };
+		CA8989982C0D33B2003F8980 /* DataAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DataAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA89899A2C0D33B2003F8980 /* DataAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataAPI.h; sourceTree = "<group>"; };
+		CA8989AB2C0D33FA003F8980 /* ComponentApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ComponentApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA8989AD2C0D33FA003F8980 /* ComponentApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComponentApp.h; sourceTree = "<group>"; };
 		CAA1A1C92C0321E100AB2D00 /* AppComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppComponent.swift; sourceTree = "<group>"; };
 		CAA1A1CD2C0323B400AB2D00 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		CAA1A1D02C03246F00AB2D00 /* TodosRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodosRepository.swift; sourceTree = "<group>"; };
 		CAA1A1D22C03248200AB2D00 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		CAA1A1D42C0324ED00AB2D00 /* Modules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modules.swift; sourceTree = "<group>"; };
+		CAA4B4A12C0E7B8F009D7D57 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		CAD680742C02FCB40083FAEC /* Todos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAD680772C02FCB40083FAEC /* TodosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodosApp.swift; sourceTree = "<group>"; };
 		CAD680792C02FCB40083FAEC /* TodosScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodosScreen.swift; sourceTree = "<group>"; };
@@ -35,22 +87,70 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CA8989952C0D33B2003F8980 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA8989BF2C0D34D0003F8980 /* Sword in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA8989A82C0D33FA003F8980 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA8989BD2C0D34B7003F8980 /* Sword in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CAD680712C02FCB40083FAEC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				CA6829EA2C03023F00CA0FED /* Sword in Frameworks */,
+				CA89899E2C0D33B2003F8980 /* DataAPI.framework in Frameworks */,
+				CA8989B12C0D33FA003F8980 /* ComponentApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CA8989992C0D33B2003F8980 /* DataAPI */ = {
+			isa = PBXGroup;
+			children = (
+				CA89899A2C0D33B2003F8980 /* DataAPI.h */,
+				CAA1A1D22C03248200AB2D00 /* APIClient.swift */,
+				CAA1A1D42C0324ED00AB2D00 /* Modules.swift */,
+			);
+			path = DataAPI;
+			sourceTree = "<group>";
+		};
+		CA8989AC2C0D33FA003F8980 /* ComponentApp */ = {
+			isa = PBXGroup;
+			children = (
+				CA8989AD2C0D33FA003F8980 /* ComponentApp.h */,
+				CAA1A1C92C0321E100AB2D00 /* AppComponent.swift */,
+			);
+			path = ComponentApp;
+			sourceTree = "<group>";
+		};
+		CAA4B4A02C0E7B8F009D7D57 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CAA4B4A12C0E7B8F009D7D57 /* HealthKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CAD6806B2C02FCB40083FAEC = {
 			isa = PBXGroup;
 			children = (
 				CAD680762C02FCB40083FAEC /* Todos */,
+				CA8989992C0D33B2003F8980 /* DataAPI */,
+				CA8989AC2C0D33FA003F8980 /* ComponentApp */,
 				CAD680752C02FCB40083FAEC /* Products */,
+				CAA4B4A02C0E7B8F009D7D57 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,6 +158,8 @@
 			isa = PBXGroup;
 			children = (
 				CAD680742C02FCB40083FAEC /* Todos.app */,
+				CA8989982C0D33B2003F8980 /* DataAPI.framework */,
+				CA8989AB2C0D33FA003F8980 /* ComponentApp.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -65,14 +167,11 @@
 		CAD680762C02FCB40083FAEC /* Todos */ = {
 			isa = PBXGroup;
 			children = (
-				CAA1A1C92C0321E100AB2D00 /* AppComponent.swift */,
 				CAD680772C02FCB40083FAEC /* TodosApp.swift */,
 				CAD680792C02FCB40083FAEC /* TodosScreen.swift */,
 				CA6829DA2C02FEC000CA0FED /* TodosViewModel.swift */,
 				CAA1A1D02C03246F00AB2D00 /* TodosRepository.swift */,
 				CAA1A1CD2C0323B400AB2D00 /* Todo.swift */,
-				CAA1A1D22C03248200AB2D00 /* APIClient.swift */,
-				CAA1A1D42C0324ED00AB2D00 /* Modules.swift */,
 				CAD6807B2C02FCB50083FAEC /* Assets.xcassets */,
 				CAD6807D2C02FCB50083FAEC /* Preview Content */,
 			);
@@ -89,7 +188,69 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		CA8989932C0D33B2003F8980 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA89899B2C0D33B2003F8980 /* DataAPI.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA8989A62C0D33FA003F8980 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA8989AE2C0D33FA003F8980 /* ComponentApp.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		CA8989972C0D33B2003F8980 /* DataAPI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CA8989A32C0D33B2003F8980 /* Build configuration list for PBXNativeTarget "DataAPI" */;
+			buildPhases = (
+				CA8989932C0D33B2003F8980 /* Headers */,
+				CA8989942C0D33B2003F8980 /* Sources */,
+				CA8989952C0D33B2003F8980 /* Frameworks */,
+				CA8989962C0D33B2003F8980 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CA8989BA2C0D343B003F8980 /* PBXTargetDependency */,
+			);
+			name = DataAPI;
+			packageProductDependencies = (
+				CA8989BE2C0D34D0003F8980 /* Sword */,
+			);
+			productName = DataAPI;
+			productReference = CA8989982C0D33B2003F8980 /* DataAPI.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		CA8989AA2C0D33FA003F8980 /* ComponentApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CA8989B32C0D33FB003F8980 /* Build configuration list for PBXNativeTarget "ComponentApp" */;
+			buildPhases = (
+				CA8989A62C0D33FA003F8980 /* Headers */,
+				CA8989A72C0D33FA003F8980 /* Sources */,
+				CA8989A82C0D33FA003F8980 /* Frameworks */,
+				CA8989A92C0D33FA003F8980 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ComponentApp;
+			packageProductDependencies = (
+				CA8989BC2C0D34B7003F8980 /* Sword */,
+			);
+			productName = ComponentApp;
+			productReference = CA8989AB2C0D33FA003F8980 /* ComponentApp.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		CAD680732C02FCB40083FAEC /* Todos */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CAD680822C02FCB50083FAEC /* Build configuration list for PBXNativeTarget "Todos" */;
@@ -97,11 +258,14 @@
 				CAD680702C02FCB40083FAEC /* Sources */,
 				CAD680712C02FCB40083FAEC /* Frameworks */,
 				CAD680722C02FCB40083FAEC /* Resources */,
+				CA89899F2C0D33B2003F8980 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				CA420A752C03E8F400EA4776 /* PBXTargetDependency */,
+				CA89899D2C0D33B2003F8980 /* PBXTargetDependency */,
+				CA8989B02C0D33FA003F8980 /* PBXTargetDependency */,
 			);
 			name = Todos;
 			packageProductDependencies = (
@@ -121,6 +285,12 @@
 				LastSwiftUpdateCheck = 1510;
 				LastUpgradeCheck = 1510;
 				TargetAttributes = {
+					CA8989972C0D33B2003F8980 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					CA8989AA2C0D33FA003F8980 = {
+						CreatedOnToolsVersion = 15.2;
+					};
 					CAD680732C02FCB40083FAEC = {
 						CreatedOnToolsVersion = 15.1;
 					};
@@ -143,11 +313,27 @@
 			projectRoot = "";
 			targets = (
 				CAD680732C02FCB40083FAEC /* Todos */,
+				CA8989972C0D33B2003F8980 /* DataAPI */,
+				CA8989AA2C0D33FA003F8980 /* ComponentApp */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		CA8989962C0D33B2003F8980 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA8989A92C0D33FA003F8980 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CAD680722C02FCB40083FAEC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -160,15 +346,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CA8989942C0D33B2003F8980 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA8989A42C0D33C7003F8980 /* APIClient.swift in Sources */,
+				CA8989B72C0D341C003F8980 /* Modules.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA8989A72C0D33FA003F8980 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA8989B62C0D3400003F8980 /* AppComponent.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CAD680702C02FCB40083FAEC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				CAD6807A2C02FCB40083FAEC /* TodosScreen.swift in Sources */,
-				CAA1A1D52C0324ED00AB2D00 /* Modules.swift in Sources */,
-				CAA1A1D32C03248200AB2D00 /* APIClient.swift in Sources */,
 				CAA1A1D12C03246F00AB2D00 /* TodosRepository.swift in Sources */,
-				CAA1A1CA2C0321E100AB2D00 /* AppComponent.swift in Sources */,
 				CA6829DB2C02FEC000CA0FED /* TodosViewModel.swift in Sources */,
 				CAD680782C02FCB40083FAEC /* TodosApp.swift in Sources */,
 				CAA1A1CE2C0323B400AB2D00 /* Todo.swift in Sources */,
@@ -182,9 +382,152 @@
 			isa = PBXTargetDependency;
 			productRef = CA420A742C03E8F400EA4776 /* SwordBuildToolPlugin */;
 		};
+		CA89899D2C0D33B2003F8980 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CA8989972C0D33B2003F8980 /* DataAPI */;
+			targetProxy = CA89899C2C0D33B2003F8980 /* PBXContainerItemProxy */;
+		};
+		CA8989B02C0D33FA003F8980 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CA8989AA2C0D33FA003F8980 /* ComponentApp */;
+			targetProxy = CA8989AF2C0D33FA003F8980 /* PBXContainerItemProxy */;
+		};
+		CA8989BA2C0D343B003F8980 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CA8989AA2C0D33FA003F8980 /* ComponentApp */;
+			targetProxy = CA8989B92C0D343B003F8980 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		CA8989A12C0D33B2003F8980 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rockname.DataAPI;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		CA8989A22C0D33B2003F8980 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rockname.DataAPI;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		CA8989B42C0D33FB003F8980 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rockname.ComponentApp;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		CA8989B52C0D33FB003F8980 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rockname.ComponentApp;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		CAD680802C02FCB50083FAEC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -307,6 +650,7 @@
 		CAD680832C02FCB50083FAEC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -335,6 +679,7 @@
 		CAD680842C02FCB50083FAEC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -363,6 +708,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CA8989A32C0D33B2003F8980 /* Build configuration list for PBXNativeTarget "DataAPI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA8989A12C0D33B2003F8980 /* Debug */,
+				CA8989A22C0D33B2003F8980 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CA8989B32C0D33FB003F8980 /* Build configuration list for PBXNativeTarget "ComponentApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA8989B42C0D33FB003F8980 /* Debug */,
+				CA8989B52C0D33FB003F8980 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CAD6806F2C02FCB40083FAEC /* Build configuration list for PBXProject "Todos" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -408,6 +771,14 @@
 			productName = "plugin:SwordBuildToolPlugin";
 		};
 		CA6829E92C03023F00CA0FED /* Sword */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Sword;
+		};
+		CA8989BC2C0D34B7003F8980 /* Sword */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Sword;
+		};
+		CA8989BE2C0D34D0003F8980 /* Sword */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Sword;
 		};
