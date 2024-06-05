@@ -41,16 +41,26 @@ import XcodeProjectPlugin
 
 extension SwordBuildToolPlugin: XcodeBuildToolPlugin {
   func createBuildCommands(context: XcodePluginContext, target: XcodeTarget) throws -> [Command] {
-    let inputPaths = target.inputFiles
-      .filter { $0.type == .source && $0.path.extension == "swift" }
-      .map(\.path)
+    let frameworkTargets = context.xcodeProject.targets.filter {
+      if case .framework = $0.product?.kind {
+        return true
+      } else {
+        return false
+      }
+    }
+    let inputPaths = ([target] + frameworkTargets).flatMap { target in
+      target.inputFiles
+        .filter { $0.type == .source && $0.path.extension == "swift" }
+        .map(\.path)
+    }
     let output = context.pluginWorkDirectory.appending("Sword.generated.swift")
-
     return [
       .buildCommand(
         displayName: "Run SwordCommand",
         executable: try context.tool(named: "SwordCommand").path,
-        arguments: ["--inputs"] + inputPaths + ["--output", output],
+        arguments: ["--targets"] + frameworkTargets.map(\.displayName) + ["--inputs"] + inputPaths + [
+          "--output", output,
+        ],
         inputFiles: inputPaths,
         outputFiles: [output]
       )

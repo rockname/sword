@@ -1,3 +1,4 @@
+import ComponentApp
 import SwiftUI
 
 @main
