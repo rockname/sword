@@ -13,11 +13,20 @@ struct SwordBuildToolPlugin: BuildToolPlugin {
       sourceModule.sourceFiles(withSuffix: "swift").map(\.path)
     }
     let output = context.pluginWorkDirectory.appending("Sword.generated.swift")
+    var arguments = [String]()
+    let targetNames = targetByName.keys
+    if !targetNames.isEmpty {
+      arguments += ["--targets"] + targetNames
+    }
+    if !inputPaths.isEmpty {
+      arguments += ["--inputs"] + inputPaths.map(\.string)
+    }
+    arguments += ["--output", output.string]
     return [
       .buildCommand(
         displayName: "Run SwordCommand",
         executable: try context.tool(named: "SwordCommand").path,
-        arguments: ["--targets"] + targetByName.keys + ["--inputs"] + inputPaths + ["--output", output],
+        arguments: arguments,
         inputFiles: inputPaths,
         outputFiles: [output]
       )
@@ -54,13 +63,19 @@ extension SwordBuildToolPlugin: XcodeBuildToolPlugin {
         .map(\.path)
     }
     let output = context.pluginWorkDirectory.appending("Sword.generated.swift")
+    var arguments = [String]()
+    if !frameworkTargets.isEmpty {
+      arguments += ["--targets"] + frameworkTargets.map(\.displayName)
+    }
+    if !inputPaths.isEmpty {
+      arguments += ["--inputs"] + inputPaths.map(\.string)
+    }
+    arguments += ["--output", output.string]
     return [
       .buildCommand(
         displayName: "Run SwordCommand",
         executable: try context.tool(named: "SwordCommand").path,
-        arguments: ["--targets"] + frameworkTargets.map(\.displayName) + ["--inputs"] + inputPaths + [
-          "--output", output,
-        ],
+        arguments: arguments,
         inputFiles: inputPaths,
         outputFiles: [output]
       )
