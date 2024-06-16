@@ -19,6 +19,10 @@ let package = Package(
       url: "https://github.com/apple/swift-argument-parser",
       from: "1.3.0"
     ),
+    .package(
+      url: "https://github.com/jpsim/Yams.git",
+      from: "5.1.2"
+    ),
   ],
   targets: [
     .target(
@@ -54,6 +58,7 @@ let package = Package(
         .product(name: "SwiftSyntax", package: "swift-syntax"),
         .product(name: "SwiftParser", package: "swift-syntax"),
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
+        .product(name: "Yams", package: "Yams"),
       ]
     ),
     .plugin(
