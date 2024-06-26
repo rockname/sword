@@ -1,0 +1,5 @@
+local_packages:
+  - path: Package
+    targets:
+      - AudioRecorder
+      - ComponentApp
