@@ -66,8 +66,12 @@ final class VoiceMemoViewModel {
       switch uiState.recorderPermission {
       case .undetermined:
         let isAllowed = await audioRecorder.requestPermission()
-        uiState.recorderPermission = isAllowed ? .allowed : .denied
-        await startRecording()
+        if isAllowed {
+          uiState.recorderPermission = .allowed
+          await startRecording()
+        } else {
+          uiState.recorderPermission = .denied
+        }
       case .denied:
         break
       case .allowed:
