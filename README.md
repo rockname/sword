@@ -77,6 +77,26 @@ Add the plugin to the application root target as follows:
 ),
 ```
 
+## Xcode + Swift Package projects
+
+Add the `SwordBuildToolPlugin` as mentioned above [Xcode projects](#xcode-projects).
+
+Then add a `.sword.yml` file into your Xcode project's root directory for Sword to read the file and generate your dependency graph considering local Swift Packages.
+
+For example:
+
+```yml
+local_packages:
+  - path: PackageA
+    targets:
+      - DependencyA
+      - DependencyB
+  - path: PackageB
+    targets:
+      - DependencyC
+      - DependencyD
+```
+
 # Usage
 
 Consider an example SwiftUI app with the dependency graph from the following image.

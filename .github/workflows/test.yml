@@ -42,7 +42,14 @@ jobs:
             -destination 'platform=iOS Simulator,name=iPhone 15 Pro Max' \
             -configuration Debug \
             clean build
-
+      - name: Build Xcode+SwiftPM example
+        run: |
+          xcodebuild \
+            -project Examples/Xcode+SwiftPM/VoiceMemo.xcodeproj \
+            -scheme VoiceMemo \
+            -destination 'platform=iOS Simulator,name=iPhone 15 Pro Max' \
+            -configuration Debug \
+            clean build
   validation:
     name: Validation
     runs-on: macos-14
