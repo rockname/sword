@@ -1,8 +1,6 @@
-import Foundation
+import SwordFoundation
 
-enum Scope: String {
-  case single
-
+extension Scope {
   var methodName: String {
     switch self {
     case .single:

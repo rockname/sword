@@ -89,6 +89,7 @@ let package = Package(
     .target(
       name: "Sword",
       dependencies: [
+        "SwordFoundation",
         "SwordMacros"
       ]
     ),
