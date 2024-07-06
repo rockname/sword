@@ -90,7 +90,7 @@ let package = Package(
       name: "Sword",
       dependencies: [
         "SwordFoundation",
-        "SwordMacros"
+        "SwordMacros",
       ]
     ),
   ]
