@@ -116,6 +116,7 @@ extension SubcomponentMacro: MemberMacro {
           accessModifier: accessModifier
         ),
         ComponentMacro.withSingleFunction(accessModifier: accessModifier),
+        ComponentMacro.withWeakReferenceFunction(accessModifier: accessModifier),
         ComponentMacro.instanceStoreVariable,
       ]
   }

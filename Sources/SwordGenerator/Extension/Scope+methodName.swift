@@ -5,6 +5,8 @@ extension Scope {
     switch self {
     case .single:
       "withSingle"
+    case .weakReference:
+      "withWeakReference"
     }
   }
 }

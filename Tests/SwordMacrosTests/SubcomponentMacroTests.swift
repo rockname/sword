@@ -43,6 +43,13 @@ final class SubcomponentMacroTests: XCTestCase {
                 _instanceStore.withSingle(function, factory)
             }
 
+            func withWeakReference<T: AnyObject>(
+                _ function: String = #function,
+                _ factory: () -> T
+            ) -> T {
+                _instanceStore.withWeakReference(function, factory)
+            }
+
             private let _instanceStore = InstanceStore()
         }
 
@@ -88,6 +95,13 @@ final class SubcomponentMacroTests: XCTestCase {
                 _ factory: () -> T
             ) -> T {
                 _instanceStore.withSingle(function, factory)
+            }
+
+            public func withWeakReference<T: AnyObject>(
+                _ function: String = #function,
+                _ factory: () -> T
+            ) -> T {
+                _instanceStore.withWeakReference(function, factory)
             }
 
             private let _instanceStore = InstanceStore()

@@ -6,6 +6,7 @@ public protocol Component: AnyObject {}
   member,
   names: named(_instanceStore),
   named(withSingle(_:_:)),
+  named(withWeakReference(_:_:)),
   arbitrary
 )
 @attached(
