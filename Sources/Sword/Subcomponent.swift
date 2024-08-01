@@ -11,6 +11,7 @@ public protocol Subcomponent: Component {
   names: named(parent),
   named(_instanceStore),
   named(withSingle(_:_:)),
+  named(withWeakReference(_:_:)),
   arbitrary
 )
 @attached(

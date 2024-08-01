@@ -1,4 +1,4 @@
-import ComponentRegistration
+import ComponentApp
 import SwiftUI
 import UIOnboarding
 import UIRegistration
@@ -11,7 +11,7 @@ enum OnboardingNavigationRoute: Hashable {
 struct OnboardingNavigation: View {
   @State private var navigationPath = [OnboardingNavigationRoute]()
 
-  let component: RegistrationComponent
+  let component: AppComponent
   let onLoggedIn: () -> Void
 
   var body: some View {

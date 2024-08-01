@@ -398,9 +398,8 @@ struct UserNavigation: View {
 | Subcomponent | ✅ Supported |
 | Component Arguments | ✅ Supported |
 | Single Scope | ✅ Supported |
-| Weak Reference Scope | 🚧 TBD |
+| Weak Reference Scope | ✅ Supported |
 | Assisted Injection | ✅ Supported |
-| Multi Binding | 🚧 TBD |
 | Missing Dependency Error | ✅ Supported |
 | Duplicate Dependency Error | ✅ Supported |
 | Cycle Dependency Error | 🚧 TBD |

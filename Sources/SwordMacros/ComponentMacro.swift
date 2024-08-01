@@ -77,6 +77,16 @@ public struct ComponentMacro {
     }
     """
   }
+  static func withWeakReferenceFunction(accessModifier: String? = nil) -> DeclSyntax {
+    """
+    \(raw: accessModifier ?? "") func withWeakReference<T: AnyObject>(
+    _ function: String = #function,
+    _ factory: () -> T
+    ) -> T {
+    _instanceStore.withWeakReference(function, factory)
+    }
+    """
+  }
 }
 
 extension ComponentMacro: ExtensionMacro {
@@ -133,6 +143,7 @@ extension ComponentMacro: MemberMacro {
     return storedProperties(for: componentArguments, accessModifier: accessModifier) + [
       initializer(arguments: componentArguments, accessModifier: accessModifier),
       withSingleFunction(accessModifier: accessModifier),
+      withWeakReferenceFunction(accessModifier: accessModifier),
       instanceStoreVariable,
     ]
   }

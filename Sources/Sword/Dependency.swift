@@ -1,4 +1,4 @@
-import Foundation
+import SwordFoundation
 
 @attached(peer)
 public macro Dependency(
