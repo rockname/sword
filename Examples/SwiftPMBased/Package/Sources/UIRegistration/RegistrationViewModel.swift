@@ -1,4 +1,4 @@
-import ComponentRegistration
+import ComponentApp
 import DataRepository
 import Foundation
 import Observation
@@ -12,8 +12,8 @@ enum RegistrationAlertKind {
 }
 
 @Dependency(
-  registeredTo: RegistrationComponent.self,
-  scopedWith: .single
+  registeredTo: AppComponent.self,
+  scopedWith: .weakReference
 )
 @Observable
 public final class RegistrationViewModel {

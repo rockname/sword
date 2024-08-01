@@ -34,7 +34,7 @@ struct RootNavigation: View {
       )
     case .notLoggedIn:
       OnboardingNavigation(
-        component: component.makeRegistrationComponent(),
+        component: component,
         onLoggedIn: {
           withAnimation {
             navigationState = .loggedIn

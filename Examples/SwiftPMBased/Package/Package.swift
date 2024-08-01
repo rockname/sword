@@ -45,13 +45,6 @@ let package = Package(
       ]
     ),
     .target(
-      name: "ComponentRegistration",
-      dependencies: [
-        "ComponentApp",
-        .product(name: "Sword", package: "sword"),
-      ]
-    ),
-    .target(
       name: "ComponentUser",
       dependencies: [
         "ComponentApp",
@@ -97,7 +90,6 @@ let package = Package(
     .target(
       name: "UIRegistration",
       dependencies: [
-        "ComponentRegistration",
         "DataRepository",
         "CommonUI",
         .product(name: "Sword", package: "sword"),
@@ -124,7 +116,6 @@ let package = Package(
       name: "MainScene",
       dependencies: [
         "ComponentApp",
-        "ComponentRegistration",
         "ComponentUser",
         "DataModel",
         "DataAPIClientDefault",
