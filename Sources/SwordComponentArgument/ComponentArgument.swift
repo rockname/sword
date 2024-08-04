@@ -23,7 +23,6 @@ public struct ComponentArgument: Hashable {
   ) {
     guard
       let argument = element.expression
-        .as(FunctionCallExprSyntax.self)?.arguments.first?.expression
         .as(MemberAccessExprSyntax.self)?.base
     else { return nil }
 

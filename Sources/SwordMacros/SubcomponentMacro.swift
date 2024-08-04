@@ -91,7 +91,7 @@ extension SubcomponentMacro: MemberMacro {
     }
 
     let location = context.location(of: node, at: .afterLeadingTrivia, filePathMode: .filePath)!
-    let componentArguments = arguments.dropFirst().base.compactMap {
+    let componentArguments = arguments.filter { $0.label?.text != "of" }.compactMap {
       ComponentArgument(
         element: $0,
         location: SourceLocation(

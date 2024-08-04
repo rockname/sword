@@ -12,7 +12,7 @@ final class SubcomponentMacroTests: XCTestCase {
   func test() {
     assertMacroExpansion(
       """
-      @Subcomponent(of: AppComponent.self, arguments: .init(User.self), .init(Account.self))
+      @Subcomponent(of: AppComponent.self, arguments: User.self, Account.self)
       final class UserComponent {
       }
       """,
@@ -66,7 +66,7 @@ final class SubcomponentMacroTests: XCTestCase {
   func test_publicModifier() {
     assertMacroExpansion(
       """
-      @Subcomponent(of: AppComponent.self, arguments: .init(User.self), .init(Account.self))
+      @Subcomponent(of: AppComponent.self, arguments: User.self, Account.self)
       public final class UserComponent {
       }
       """,

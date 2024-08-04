@@ -12,7 +12,7 @@ final class ComponentMacroTests: XCTestCase {
   func test() {
     assertMacroExpansion(
       """
-      @Component(arguments: .init(EnvVars.self))
+      @Component(arguments: EnvVars.self)
       final class AppComponent {
       }
       """,
@@ -55,7 +55,7 @@ final class ComponentMacroTests: XCTestCase {
   func test_publicModifier() {
     assertMacroExpansion(
       """
-      @Component(arguments: .init(EnvVars.self))
+      @Component(arguments: EnvVars.self)
       public final class AppComponent {
       }
       """,

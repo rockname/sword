@@ -324,7 +324,7 @@ struct EnvVars {
   let baseURL: URL
 }
 
-@Component(arguments: .init(EnvVars.self))
+@Component(arguments: EnvVars.self)
 final class AppComponent {
 }
 ```
