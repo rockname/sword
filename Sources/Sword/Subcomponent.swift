@@ -21,5 +21,5 @@ public protocol Subcomponent: Component {
 )
 public macro Subcomponent(
   of parent: any Component.Type,
-  arguments: ComponentArgument...
+  arguments: Any.Type...
 ) = #externalMacro(module: "SwordMacros", type: "SubcomponentMacro")

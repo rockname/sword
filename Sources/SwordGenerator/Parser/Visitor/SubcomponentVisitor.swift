@@ -53,7 +53,7 @@ final class SubcomponentVisitor: SyntaxVisitor {
     }
 
     let location = attributes.startLocation(converter: locationConverter)
-    let componentArguments = arguments.dropFirst().base.compactMap {
+    let componentArguments = arguments.filter { $0.label?.text != "of" }.compactMap {
       ComponentArgument(
         element: $0,
         location: location

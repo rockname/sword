@@ -13,5 +13,5 @@ public protocol Component: AnyObject {}
   extension,
   conformances: Component
 )
-public macro Component(arguments: ComponentArgument...) =
+public macro Component(arguments: Any.Type...) =
   #externalMacro(module: "SwordMacros", type: "ComponentMacro")
