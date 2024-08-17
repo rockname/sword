@@ -9,12 +9,12 @@ public struct SwordExporter {
   }
 
   func export(
-    componentTree: ComponentTree,
+    bindingGraph: BindingGraph,
     imports: [Import],
     outputPath: URL
   ) throws {
     let output = renderer.render(
-      componentTree: componentTree,
+      bindingGraph: bindingGraph,
       imports: imports
     )
     guard let data = output.data(using: .utf8) else {

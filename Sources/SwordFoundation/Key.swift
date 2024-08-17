@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Key: Hashable {
+public struct Key: Hashable, Codable {
   public let value: String
 
   public init(type: Type) {

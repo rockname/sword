@@ -7,7 +7,7 @@ struct ComponentValidator {
     self.componentRegistry = componentRegistry
   }
 
-  func validate() -> ValidationResult<(ComponentNode, [ComponentName: [ComponentNode]])> {
+  func validate() -> ValidationResult<(Component, [ComponentName: [Component]])> {
     guard let component = componentRegistry.components.first else {
       return .invalid([
         Report(
@@ -26,20 +26,30 @@ struct ComponentValidator {
       ])
     }
 
+    var subcomponentsByParent = [ComponentName: [Component]]()
+
+    for (parentName, subcomponents) in componentRegistry.subcomponentsByParent {
+      subcomponentsByParent[parentName, default: []].append(
+        contentsOf: subcomponents.map { subcomponent in
+          Component(
+            name: subcomponent.name,
+            arguments: subcomponent.arguments,
+            parentComponentName: parentName,
+            location: subcomponent.location
+          )
+        }
+      )
+    }
+
     return .valid(
       (
-        ComponentNode(
+        Component(
           name: component.name,
-          arguments: component.arguments
+          arguments: component.arguments,
+          parentComponentName: nil,
+          location: component.location
         ),
-        componentRegistry.subcomponentsByParent.mapValues { subcomponents in
-          subcomponents.map { subcomponent in
-            ComponentNode(
-              name: subcomponent.name,
-              arguments: subcomponent.arguments
-            )
-          }
-        }
+        subcomponentsByParent
       )
     )
   }

@@ -49,6 +49,7 @@ struct ModuleValidator {
 
           providers.append(
             Provider(
+              moduleName: descriptor.name,
               name: provider.name,
               type: returnType,
               parameters: provider.parameters,

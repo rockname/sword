@@ -29,7 +29,8 @@ final class SubcomponentVisitor: SyntaxVisitor {
         SubcomponentDescriptor(
           name: ComponentName(value: node.name.text),
           arguments: subcomponentAttribute.arguments,
-          parentName: subcomponentAttribute.parent
+          parentName: subcomponentAttribute.parent,
+          location: node.startLocation(converter: locationConverter)
         ),
         by: ComponentName(value: subcomponentAttribute.parent)
       )
