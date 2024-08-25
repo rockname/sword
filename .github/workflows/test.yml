@@ -34,6 +34,7 @@ jobs:
             -destination 'platform=iOS Simulator,name=iPhone 15 Pro Max' \
             -configuration Debug \
             clean build
+          if [ -n "$(git status --porcelain)" ]; then git diff && echo "Make sure diff for a SNS example."; exit 1; fi
       - name: Build XcodeBased example
         run: |
           xcodebuild \
@@ -42,6 +43,7 @@ jobs:
             -destination 'platform=iOS Simulator,name=iPhone 15 Pro Max' \
             -configuration Debug \
             clean build
+          if [ -n "$(git status --porcelain)" ]; then git diff && echo "Make sure diff for a Todos example."; exit 1; fi
       - name: Build Xcode+SwiftPM example
         run: |
           xcodebuild \
@@ -50,6 +52,7 @@ jobs:
             -destination 'platform=iOS Simulator,name=iPhone 15 Pro Max' \
             -configuration Debug \
             clean build
+          if [ -n "$(git status --porcelain)" ]; then git diff && echo "Make sure diff for a VoiceMemo example."; exit 1; fi
   validation:
     name: Validation
     runs-on: macos-14
