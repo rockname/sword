@@ -28,7 +28,8 @@ final class ComponentVisitor: SyntaxVisitor {
     componentRegistry.register(
       RootComponentDescriptor(
         name: ComponentName(value: node.name.text),
-        arguments: componentAttribute.arguments
+        arguments: componentAttribute.arguments,
+        location: node.startLocation(converter: locationConverter)
       )
     )
   }

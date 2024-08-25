@@ -1,4 +1,4 @@
-public enum Scope: String {
+public enum Scope: String, Codable {
   case single
   case weakReference
 }

@@ -1,5 +1,5 @@
 import Foundation
 
-struct ComponentName: Hashable {
+struct ComponentName: Hashable, Codable {
   let value: String
 }

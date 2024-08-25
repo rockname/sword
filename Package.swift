@@ -23,6 +23,10 @@ let package = Package(
       url: "https://github.com/jpsim/Yams.git",
       from: "5.1.2"
     ),
+    .package(
+      url: "https://github.com/davecom/SwiftGraph",
+      from: "3.1.0"
+    ),
   ],
   targets: [
     .target(
@@ -49,6 +53,7 @@ let package = Package(
         "SwiftSyntaxSupport",
         .product(name: "SwiftSyntax", package: "swift-syntax"),
         .product(name: "SwiftSyntaxBuilder", package: "swift-syntax"),
+        .product(name: "SwiftGraph", package: "SwiftGraph"),
       ]
     ),
     .executableTarget(

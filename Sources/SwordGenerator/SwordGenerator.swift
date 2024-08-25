@@ -17,9 +17,9 @@ public struct SwordGenerator {
     targets: [String],
     output: String
   ) throws {
-    let (componentTree, imports) = try parser.parse(sourceFiles: sourceFiles, targets: targets)
+    let (bindingGraph, imports) = try parser.parse(sourceFiles: sourceFiles, targets: targets)
     try exporter.export(
-      componentTree: componentTree,
+      bindingGraph: bindingGraph,
       imports: imports,
       outputPath: URL(filePath: output)
     )

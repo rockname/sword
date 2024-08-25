@@ -12,7 +12,7 @@ public struct SwordParser {
   func parse(
     sourceFiles: [SourceFile],
     targets: [String]
-  ) throws -> (ComponentTree, [Import]) {
+  ) throws -> (BindingGraph, [Import]) {
     let componentRegistry = ComponentRegistry()
     let dependencyRegistry = DependencyRegistry()
     let moduleRegistry = ModuleRegistry()
@@ -56,7 +56,7 @@ public struct SwordParser {
       .validate()
     let moduleValidationResult = ModuleValidator(moduleRegistry: moduleRegistry).validate()
     guard
-      case .valid((let componentNode, let subcomponentsByParent)) = componentValidationResult,
+      case .valid((let component, let subcomponentsByParent)) = componentValidationResult,
       case .valid(let dependenciesByComponentName) = dependencyValidationResult,
       case .valid(let modulesByComponentName) = moduleValidationResult
     else {
@@ -71,24 +71,23 @@ public struct SwordParser {
       exit(1)
     }
 
-    let componentTreeFactory = ComponentTreeFactory(
+    let bindingGraphFactory = BindingGraphFactory(
       subcomponentsByParent: subcomponentsByParent,
       dependenciesByComponentName: dependenciesByComponentName,
       modulesByComponentName: modulesByComponentName
     )
-    let componentTree = componentTreeFactory.makeComponentTree(componentNode: componentNode)
+    let bindingGraph = bindingGraphFactory.makeBindingGraph(rootComponent: component)
+    let bindingGraphValidationResult = BindingGraphValidator(bindingGraph: bindingGraph).validate()
 
-    let componentTreeValidationResult = ComponentTreeValidator(componentTree: componentTree)
-      .validate()
-    guard case .valid = componentTreeValidationResult else {
-      for report in componentTreeValidationResult.reports {
+    guard case .valid = bindingGraphValidationResult else {
+      for report in bindingGraphValidationResult.reports {
         reporter.send(report)
       }
       exit(1)
     }
 
     return (
-      componentTree,
+      bindingGraph,
       Array(importRegistry.imports)
     )
   }

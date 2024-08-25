@@ -2,7 +2,7 @@ import Foundation
 import SwiftSyntax
 import SwordFoundation
 
-struct Parameter {
+struct Parameter: Codable {
   let key: Key
   let type: Type
   let name: String

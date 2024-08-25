@@ -2,7 +2,7 @@ import Foundation
 import SwiftSyntax
 import SwordFoundation
 
-public struct ComponentArgument: Hashable {
+public struct ComponentArgument: Hashable, Codable {
   public let key: Key
   public let type: Type
   public let location: SourceLocation
