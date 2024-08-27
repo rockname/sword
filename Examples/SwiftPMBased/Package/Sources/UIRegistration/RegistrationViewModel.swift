@@ -16,13 +16,12 @@ enum RegistrationAlertKind {
   scopedWith: .weakReference
 )
 @Observable
+@MainActor
 public final class RegistrationViewModel {
   private(set) var username = ""
   private(set) var password = ""
   private(set) var isRegistering = false
-  @MainActor
   private(set) var alertKind: RegistrationAlertKind?
-  @MainActor
   private(set) var completedEvent: RegistrationCompletedEvent?
 
   var isNextButtonEnabled: Bool {
@@ -48,7 +47,6 @@ public final class RegistrationViewModel {
     password = text
   }
 
-  @MainActor
   func onRegisterButtonTapped() async {
     isRegistering = true
     do {
@@ -60,12 +58,10 @@ public final class RegistrationViewModel {
     isRegistering = false
   }
 
-  @MainActor
   func onAlertDismissed() {
     alertKind = nil
   }
 
-  @MainActor
   func onCompletedEventConsumed() {
     completedEvent = nil
   }

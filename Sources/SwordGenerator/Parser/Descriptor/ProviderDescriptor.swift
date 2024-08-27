@@ -7,6 +7,7 @@ struct ProviderDescriptor {
   let isStaticFunction: Bool
   let returnType: Type?
   let parameters: [Parameter]
+  let hasMainActorAttribute: Bool
   let scope: Scope?
   let location: SourceLocation
 }

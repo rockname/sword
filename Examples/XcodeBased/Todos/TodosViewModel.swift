@@ -11,8 +11,8 @@ enum TodosUIState {
 
 @Dependency(registeredTo: AppComponent.self)
 @Observable
+@MainActor
 final class TodosViewModel {
-  @MainActor
   private(set) var uiState: TodosUIState = .initial
 
   private let todosRepository: TodosRepository
@@ -22,14 +22,12 @@ final class TodosViewModel {
     self.todosRepository = todosRepository
   }
 
-  @MainActor
   func onAppear() async {
     guard case .initial = uiState else { return }
 
     await loadTodos()
   }
 
-  @MainActor
   private func loadTodos() async {
     uiState = .loading
     do {

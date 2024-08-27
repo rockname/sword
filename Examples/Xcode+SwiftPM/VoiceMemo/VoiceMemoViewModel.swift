@@ -29,10 +29,10 @@ struct VoiceMemoUIState {
   }()
 }
 
+@MainActor
 @Observable
 @Dependency(registeredTo: AppComponent.self)
 final class VoiceMemoViewModel {
-  @MainActor
   private(set) var uiState: VoiceMemoUIState = .init()
 
   private var timerTask: Task<Void, Error>?
@@ -58,7 +58,6 @@ final class VoiceMemoViewModel {
     self.currentDateGenerator = currentDateGenerator
   }
 
-  @MainActor
   func onRecordButtonTapped() async {
     if uiState.isRecording {
       stopRecording()
@@ -80,7 +79,6 @@ final class VoiceMemoViewModel {
     }
   }
 
-  @MainActor
   private func startRecording() async {
     uiState.isRecording = true
 
@@ -121,7 +119,6 @@ final class VoiceMemoViewModel {
     uiState.elapsedTime = .zero
   }
 
-  @MainActor
   private func stopRecording() {
     guard
       uiState.isStopping == false,

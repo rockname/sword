@@ -53,6 +53,7 @@ struct ModuleValidator {
               name: provider.name,
               type: returnType,
               parameters: provider.parameters,
+              hasMainActorAttribute: provider.hasMainActorAttribute,
               scope: provider.scope,
               location: provider.location
             )
