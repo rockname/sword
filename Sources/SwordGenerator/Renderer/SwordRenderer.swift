@@ -31,10 +31,8 @@ public struct SwordRenderer {
           name: .identifier(component.name.value)
         )
       ) {
-        for node in bindingGraph.nodes {
-          if case .binding(let binding) = node,
-            case .registration(let parameters, let calledExpression, let scope) = binding.kind
-          {
+        for binding in bindingGraph.bindings(for: component) {
+          if case .registration(let parameters, let calledExpression, let scope) = binding.kind {
             VariableDeclSyntax(
               bindingSpecifier: .keyword(.var)
             ) {

@@ -41,6 +41,17 @@ final class BindingGraph {
     self.rootComponent = rootComponent
   }
 
+  func bindings(for component: Component) -> [Binding] {
+    (network.neighborsForVertex(.component(component)) ?? []).compactMap { node in
+      switch node {
+      case .binding(let binding):
+        binding
+      case .component, .missingBinding:
+        nil
+      }
+    }
+  }
+
   func subcomponents(for component: Component) -> [Component] {
     (network.neighborsForVertex(.component(component)) ?? []).compactMap { node in
       if case .component(let subcomponent) = node,
