@@ -57,7 +57,7 @@ struct DependencyValidator {
             type: descriptor.type,
             interface: descriptor.interface,
             initializer: injectedInitializer,
-            hasMainActorAttribute: descriptor.hasMainActorAttribute,
+            hasMainActor: descriptor.hasMainActor,
             scope: descriptor.scope,
             location: descriptor.location
           )

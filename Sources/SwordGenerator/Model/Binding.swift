@@ -8,7 +8,7 @@ struct Binding: Codable {
     case registration(
       parameters: [Parameter],
       calledExpression: String,
-      hasMainActorAttribute: Bool,
+      hasMainActor: Bool,
       scope: Scope?
     )
     case componentArgument
@@ -49,7 +49,7 @@ struct Binding: Codable {
     self.kind = .registration(
       parameters: dependency.initializer.parameters,
       calledExpression: dependency.type.value,
-      hasMainActorAttribute: dependency.hasMainActorAttribute,
+      hasMainActor: dependency.hasMainActor,
       scope: dependency.scope
     )
     self.location = dependency.location
@@ -61,7 +61,7 @@ struct Binding: Codable {
     self.kind = .registration(
       parameters: provider.parameters,
       calledExpression: "\(provider.moduleName).\(provider.name)",
-      hasMainActorAttribute: provider.hasMainActorAttribute,
+      hasMainActor: provider.hasMainActor,
       scope: provider.scope
     )
     self.location = provider.location

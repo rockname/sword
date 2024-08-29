@@ -8,7 +8,7 @@ struct Provider {
   let key: Key
   let type: Type
   let parameters: [Parameter]
-  let hasMainActorAttribute: Bool
+  let hasMainActor: Bool
   let scope: Scope?
   let location: SourceLocation
 
@@ -17,7 +17,7 @@ struct Provider {
     name: String,
     type: Type,
     parameters: [Parameter],
-    hasMainActorAttribute: Bool,
+    hasMainActor: Bool,
     scope: Scope?,
     location: SourceLocation
   ) {
@@ -26,7 +26,7 @@ struct Provider {
     self.key = Key(type: type)
     self.type = type
     self.parameters = parameters
-    self.hasMainActorAttribute = hasMainActorAttribute
+    self.hasMainActor = hasMainActor
     self.scope = scope
     self.location = location
   }
