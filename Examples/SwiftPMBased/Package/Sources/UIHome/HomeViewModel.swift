@@ -13,8 +13,8 @@ enum HomeUIState {
 
 @Dependency(registeredTo: UserComponent.self)
 @Observable
+@MainActor
 public final class HomeViewModel {
-  @MainActor
   private(set) var uiState: HomeUIState = .initial
 
   private let homeTimelineRepository: HomeTimelineRepository
@@ -24,14 +24,12 @@ public final class HomeViewModel {
     self.homeTimelineRepository = homeTimelineRepository
   }
 
-  @MainActor
   func onAppear() async {
     guard case .initial = uiState else { return }
 
     await loadInitialTimeline()
   }
 
-  @MainActor
   private func loadInitialTimeline() async {
     uiState = .loading
     do {

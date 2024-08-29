@@ -32,8 +32,23 @@ public struct SwordRenderer {
         )
       ) {
         for binding in bindingGraph.bindings(for: component) {
-          if case .registration(let parameters, let calledExpression, let scope) = binding.kind {
+          if case .registration(
+            let parameters,
+            let calledExpression,
+            let hasMainActor,
+            let scope
+          ) = binding.kind {
             VariableDeclSyntax(
+              attributes: hasMainActor
+                ? [
+                  .attribute(
+                    .init(
+                      atSign: .atSignToken(),
+                      attributeName: IdentifierTypeSyntax(name: .identifier("MainActor")),
+                      trailingTrivia: .newline
+                    )
+                  )
+                ] : [],
               bindingSpecifier: .keyword(.var)
             ) {
               let registrationBody = FunctionCallExprSyntax(

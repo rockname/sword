@@ -13,8 +13,8 @@ enum PostDetailUIState {
 
 @Dependency(registeredTo: UserComponent.self)
 @Observable
+@MainActor
 public final class PostDetailViewModel {
-  @MainActor
   private(set) var uiState: PostDetailUIState = .initial
 
   private let id: Post.ID
@@ -29,14 +29,12 @@ public final class PostDetailViewModel {
     self.postRepository = postRepository
   }
 
-  @MainActor
   func onAppear() async {
     guard case .initial = uiState else { return }
 
     await loadPost()
   }
 
-  @MainActor
   private func loadPost() async {
     uiState = .loading
     do {

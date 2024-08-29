@@ -72,10 +72,12 @@ final class DependencyVisitor: SyntaxVisitor {
           }
         )
       }
+    let hasMainActor = attributes.first(named: "MainActor") != nil
     let dependencyDescriptor = DependencyDescriptor(
       type: Type(value: name.text),
       interface: dependencyAttribute.interface.map(Interface.init),
       injectedInitializers: injectedInitializers,
+      hasMainActor: hasMainActor,
       scope: dependencyAttribute.scope,
       isClass: isClass,
       location: location

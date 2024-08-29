@@ -8,6 +8,7 @@ struct Binding: Codable {
     case registration(
       parameters: [Parameter],
       calledExpression: String,
+      hasMainActor: Bool,
       scope: Scope?
     )
     case componentArgument
@@ -20,7 +21,7 @@ struct Binding: Codable {
 
   var dependencyRequests: [DependencyRequest] {
     switch kind {
-    case .registration(let parameters, _, _):
+    case .registration(let parameters, _, _, _):
       parameters
         .filter { !$0.isAssisted }
         .map {
@@ -48,6 +49,7 @@ struct Binding: Codable {
     self.kind = .registration(
       parameters: dependency.initializer.parameters,
       calledExpression: dependency.type.value,
+      hasMainActor: dependency.hasMainActor,
       scope: dependency.scope
     )
     self.location = dependency.location
@@ -59,6 +61,7 @@ struct Binding: Codable {
     self.kind = .registration(
       parameters: provider.parameters,
       calledExpression: "\(provider.moduleName).\(provider.name)",
+      hasMainActor: provider.hasMainActor,
       scope: provider.scope
     )
     self.location = provider.location

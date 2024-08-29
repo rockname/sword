@@ -44,6 +44,7 @@ final class ModuleVisitor: SyntaxVisitor {
           location: parameter.startLocation(converter: locationConverter)
         )
       }
+      let hasMainActor = function.attributes.first(named: "MainActor") != nil
 
       return ProviderDescriptor(
         name: function.name.text,
@@ -52,6 +53,7 @@ final class ModuleVisitor: SyntaxVisitor {
         }),
         returnType: function.signature.returnClause.map { Type(value: "\($0.type.trimmed)") },
         parameters: parameters,
+        hasMainActor: hasMainActor,
         scope: providerAttribute.scope,
         location: function.attributes.startLocation(converter: locationConverter)
       )
