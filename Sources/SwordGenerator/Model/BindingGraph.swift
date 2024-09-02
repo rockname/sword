@@ -52,6 +52,31 @@ final class BindingGraph {
     }
   }
 
+  func requiredBindings(for binding: Binding) -> [Binding] {
+    let bindingIndex = network.indexOfVertex(.binding(binding))
+    let neighborEdges = network.edgesForVertex(.binding(binding)) ?? []
+    let destinationNodes =
+      neighborEdges
+      .filter { neighborEdge in
+        let origin = neighborEdge.u
+        return origin == bindingIndex
+      }
+      .map { neighborEdge in
+        let destination = neighborEdge.v
+        return network.vertexAtIndex(destination)
+      }
+    return
+      destinationNodes
+      .compactMap { destinationNode in
+        switch destinationNode {
+        case .binding(let binding):
+          binding
+        case .component, .missingBinding:
+          nil
+        }
+      }
+  }
+
   func subcomponents(for component: Component) -> [Component] {
     (network.neighborsForVertex(.component(component)) ?? []).compactMap { node in
       if case .component(let subcomponent) = node,
