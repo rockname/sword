@@ -37,6 +37,26 @@ struct BindingGraphValidator {
         }
       }
     }
+    for binding in bindingsByKey.values.flatMap({ $0 }) {
+      let requiredBindings = bindingGraph.requiredBindings(for: binding)
+      for requiredBinding in requiredBindings {
+        switch requiredBinding.kind {
+        case .registration(let parameters, _, _, _):
+          if parameters.contains(where: \.isAssisted) {
+            reports.append(
+              Report(
+                message:
+                  "Sword does not support the injection of dependencies with @Assisted parameters, \(requiredBinding.type.value)",
+                severity: .error,
+                location: binding.location
+              )
+            )
+          }
+        case .componentArgument:
+          break
+        }
+      }
+    }
     for missingDependencyRequest in missingDependencyRequests {
       reports.append(
         Report(
