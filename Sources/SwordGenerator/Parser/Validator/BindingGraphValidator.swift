@@ -57,6 +57,25 @@ struct BindingGraphValidator {
         }
       }
     }
+    for binding in bindingsByKey.values.flatMap({ $0 }) {
+      switch binding.kind {
+      case .registration(_, _, _, let scope):
+        guard let scope else { break }
+
+        switch scope {
+        case .single:
+          detectCaptiveDependency(
+            binding: binding,
+            originalBinding: binding,
+            reports: &reports
+          )
+        case .weakReference:
+          break
+        }
+      case .componentArgument:
+        break
+      }
+    }
     for missingDependencyRequest in missingDependencyRequests {
       reports.append(
         Report(
@@ -95,6 +114,39 @@ struct BindingGraphValidator {
       return .valid(())
     } else {
       return .invalid(reports)
+    }
+  }
+
+  private func detectCaptiveDependency(
+    binding: Binding,
+    originalBinding: Binding,
+    reports: inout [Report]
+  ) {
+    let requiredBindings = bindingGraph.requiredBindings(for: binding)
+    for requiredBinding in requiredBindings {
+      switch requiredBinding.kind {
+      case .registration(_, _, _, let scope):
+        if let scope {
+          switch scope {
+          case .single: break
+          case .weakReference:
+            reports.append(
+              Report(
+                message: "A captive dependency found, \(requiredBinding.type.value)",
+                severity: .error,
+                location: originalBinding.location
+              )
+            )
+          }
+        }
+      case .componentArgument: break
+      }
+
+      detectCaptiveDependency(
+        binding: requiredBinding,
+        originalBinding: originalBinding,
+        reports: &reports
+      )
     }
   }
 }
