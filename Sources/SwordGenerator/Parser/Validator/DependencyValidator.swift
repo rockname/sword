@@ -8,10 +8,10 @@ struct DependencyValidator {
     var dependenciesByComponentName = [ComponentName: [Dependency]]()
     for (componentName, descriptors) in dependencyRegistry.descriptorsByComponentName {
       for descriptor in descriptors {
-        if !descriptor.isClass, descriptor.scope != nil {
+        if !descriptor.isReferenceType, descriptor.scope != nil {
           reports.append(
             Report(
-              message: "Scoped '@Dependency' must be class type",
+              message: "Scoped '@Dependency' must be reference type",
               severity: .error,
               location: descriptor.location
             )

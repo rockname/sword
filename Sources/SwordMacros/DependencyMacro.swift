@@ -12,10 +12,14 @@ extension DependencyMacro: PeerMacro {
     providingPeersOf declaration: some DeclSyntaxProtocol,
     in context: some MacroExpansionContext
   ) throws -> [DeclSyntax] {
-    guard declaration.is(StructDeclSyntax.self) || declaration.is(ClassDeclSyntax.self) else {
+    guard
+      declaration.is(StructDeclSyntax.self)
+        || declaration.is(ClassDeclSyntax.self)
+        || declaration.is(ActorDeclSyntax.self)
+    else {
       throw DiagnosticsError(
         syntax: node,
-        message: "'@Dependency' must be applied to struct or class type",
+        message: "'@Dependency' must be applied to struct, class or actor type",
         id: .invalidApplication
       )
     }
