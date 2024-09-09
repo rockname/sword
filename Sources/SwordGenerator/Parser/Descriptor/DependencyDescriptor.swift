@@ -8,6 +8,6 @@ struct DependencyDescriptor {
   let injectedInitializers: [Initializer]
   let hasMainActor: Bool
   let scope: Scope?
-  let isClass: Bool
+  let isReferenceType: Bool
   let location: SourceLocation
 }

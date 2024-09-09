@@ -28,7 +28,7 @@ final class DependencyVisitor: SyntaxVisitor {
       name: node.name,
       attributes: node.attributes,
       members: node.memberBlock.members,
-      isClass: false
+      isReferenceType: false
     )
   }
 
@@ -37,7 +37,16 @@ final class DependencyVisitor: SyntaxVisitor {
       name: node.name,
       attributes: node.attributes,
       members: node.memberBlock.members,
-      isClass: true
+      isReferenceType: true
+    )
+  }
+
+  override func visitPost(_ node: ActorDeclSyntax) {
+    registerDependencyIfNeeded(
+      name: node.name,
+      attributes: node.attributes,
+      members: node.memberBlock.members,
+      isReferenceType: true
     )
   }
 
@@ -45,7 +54,7 @@ final class DependencyVisitor: SyntaxVisitor {
     name: TokenSyntax,
     attributes: AttributeListSyntax,
     members: MemberBlockItemListSyntax,
-    isClass: Bool
+    isReferenceType: Bool
   ) {
     guard let dependencyAttribute = extractDependencyAttribute(from: attributes) else { return }
 
@@ -79,7 +88,7 @@ final class DependencyVisitor: SyntaxVisitor {
       injectedInitializers: injectedInitializers,
       hasMainActor: hasMainActor,
       scope: dependencyAttribute.scope,
-      isClass: isClass,
+      isReferenceType: isReferenceType,
       location: location
     )
     dependencyRegistry.register(
