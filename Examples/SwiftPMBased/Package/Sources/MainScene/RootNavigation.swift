@@ -4,51 +4,30 @@ import Foundation
 import SwiftUI
 import UILaunch
 
-enum RootNavigationState {
-  case launching
-  case notLoggedIn
-  case loggedIn
-}
-
 struct RootNavigation: View {
-  @State private var navigationState: RootNavigationState = .launching
-
   let component: AppComponent
-  var userRepository: UserRepository {
-    component.userRepository
-  }
+
+  let navigationModel: RootNavigationModel
 
   var body: some View {
-    switch navigationState {
+    switch navigationModel.navigationState {
     case .launching:
       LaunchScreen(
         onLaunched: {
-          withAnimation {
-            if userRepository.isUserLoggedIn {
-              navigationState = .loggedIn
-            } else {
-              navigationState = .notLoggedIn
-            }
+          Task {
+            await navigationModel.onLaunched()
           }
         }
       )
     case .notLoggedIn:
       OnboardingNavigation(
         component: component,
-        onLoggedIn: {
-          withAnimation {
-            navigationState = .loggedIn
-          }
-        }
+        onLoggedIn: navigationModel.onLoggedIn
       )
     case .loggedIn:
       HomeNavigation(
         component: component.makeUserComponent(),
-        onLoggedIn: {
-          withAnimation {
-            navigationState = .notLoggedIn
-          }
-        }
+        onLoggedOut: navigationModel.onLoggedOut
       )
     }
   }

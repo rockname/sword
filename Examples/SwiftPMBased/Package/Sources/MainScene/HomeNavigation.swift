@@ -12,7 +12,7 @@ struct HomeNavigation: View {
   @State private var navigationPath = [HomeNavigationRoute]()
 
   let component: UserComponent
-  let onLoggedIn: () -> Void
+  let onLoggedOut: () -> Void
 
   var body: some View {
     NavigationStack(path: $navigationPath) {
