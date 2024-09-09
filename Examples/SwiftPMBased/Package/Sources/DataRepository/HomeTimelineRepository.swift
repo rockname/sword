@@ -5,7 +5,7 @@ import Foundation
 import Sword
 
 @Dependency(registeredTo: UserComponent.self)
-public class HomeTimelineRepository {
+public actor HomeTimelineRepository {
   private let apiClient: APIClient
 
   @Injected

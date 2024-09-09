@@ -7,7 +7,7 @@ import Sword
   registeredTo: AppComponent.self,
   scopedWith: .single
 )
-public final class UserRepository {
+public actor UserRepository {
   private let apiClient: APIClient
 
   public var isUserLoggedIn: Bool {

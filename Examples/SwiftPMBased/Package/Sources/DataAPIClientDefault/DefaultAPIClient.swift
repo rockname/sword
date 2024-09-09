@@ -8,7 +8,7 @@ import Sword
   registeredTo: AppComponent.self,
   boundTo: APIClient.self
 )
-public struct DefaultAPIClient: APIClient {
+public actor DefaultAPIClient: APIClient {
   private let baseURL: URL
   private let urlSession: URLSession
   private let jsonDecoder: JSONDecoder

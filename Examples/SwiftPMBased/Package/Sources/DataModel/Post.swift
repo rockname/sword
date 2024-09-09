@@ -1,7 +1,7 @@
 import Foundation
 
-public struct Post {
-  public struct ID: Hashable {
+public struct Post: Sendable {
+  public struct ID: Hashable, Sendable {
     public let value: String
 
     public init(value: String) {

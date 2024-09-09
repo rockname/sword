@@ -1,6 +1,6 @@
 import Foundation
 
-public struct EnvVars {
+public struct EnvVars: Sendable {
   public let baseURL: URL
 
   public init(baseURL: URL) {
