@@ -15,7 +15,7 @@ env:
 jobs:
   test:
     name: Test
-    runs-on: macos-14
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
       - name: Test library
@@ -23,7 +23,7 @@ jobs:
 
   build_examples:
     name: Build examples
-    runs-on: macos-14
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
       - name: Build SwiftPMBased example
@@ -55,7 +55,7 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then git diff && echo "Make sure diff for a VoiceMemo example."; exit 1; fi
   validation:
     name: Validation
-    runs-on: macos-14
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
       - name: Cache tools
