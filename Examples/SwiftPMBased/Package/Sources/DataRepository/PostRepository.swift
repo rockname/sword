@@ -4,7 +4,7 @@ import DataModel
 import Sword
 
 @Dependency(registeredTo: UserComponent.self)
-public class PostRepository {
+public struct PostRepository: Sendable {
   private let apiClient: APIClient
 
   @Injected

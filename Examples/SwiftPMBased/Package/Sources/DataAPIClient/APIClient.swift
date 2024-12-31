@@ -1,1 +1,1 @@
-public protocol APIClient {}
+public protocol APIClient: Sendable {}
