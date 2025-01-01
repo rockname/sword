@@ -31,7 +31,7 @@ jobs:
           xcodebuild \
             -project Examples/SwiftPMBased/SNS.xcodeproj \
             -scheme SNS \
-            -destination 'platform=iOS Simulator,name=iPhone 15 Pro Max' \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro Max' \
             -configuration Debug \
             clean build
           if [ -n "$(git status --porcelain)" ]; then git diff && echo "Make sure diff for a SNS example."; exit 1; fi
@@ -40,7 +40,7 @@ jobs:
           xcodebuild \
             -project Examples/XcodeBased/Todos.xcodeproj \
             -scheme Todos \
-            -destination 'platform=iOS Simulator,name=iPhone 15 Pro Max' \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro Max' \
             -configuration Debug \
             clean build
           if [ -n "$(git status --porcelain)" ]; then git diff && echo "Make sure diff for a Todos example."; exit 1; fi
@@ -49,7 +49,7 @@ jobs:
           xcodebuild \
             -project Examples/Xcode+SwiftPM/VoiceMemo.xcodeproj \
             -scheme VoiceMemo \
-            -destination 'platform=iOS Simulator,name=iPhone 15 Pro Max' \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro Max' \
             -configuration Debug \
             clean build
           if [ -n "$(git status --porcelain)" ]; then git diff && echo "Make sure diff for a VoiceMemo example."; exit 1; fi
