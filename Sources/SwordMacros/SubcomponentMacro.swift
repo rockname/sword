@@ -4,7 +4,7 @@ import SwiftSyntaxMacros
 import SwiftSyntaxSupport
 import SwordComponentArgument
 
-public struct SubcomponentMacro {
+struct SubcomponentMacro {
   static let conformanceName = "Subcomponent"
   static var qualifiedConformanceName: String {
     "\(moduleName).\(conformanceName)"
@@ -40,7 +40,7 @@ public struct SubcomponentMacro {
 }
 
 extension SubcomponentMacro: ExtensionMacro {
-  public static func expansion(
+  static func expansion(
     of node: AttributeSyntax,
     attachedTo declaration: some DeclGroupSyntax,
     providingExtensionsOf type: some TypeSyntaxProtocol,
@@ -68,7 +68,7 @@ extension SubcomponentMacro: ExtensionMacro {
 }
 
 extension SubcomponentMacro: MemberMacro {
-  public static func expansion(
+  static func expansion(
     of node: AttributeSyntax,
     providingMembersOf declaration: some DeclGroupSyntax,
     in context: some MacroExpansionContext

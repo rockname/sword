@@ -1,10 +1,10 @@
 import Foundation
 import SwiftSyntax
 
-public struct SwordExporter {
+package struct SwordExporter {
   private let renderer: SwordRenderer
 
-  public init(renderer: SwordRenderer) {
+  package init(renderer: SwordRenderer) {
     self.renderer = renderer
   }
 

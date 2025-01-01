@@ -3,10 +3,10 @@ import SwiftParser
 import SwiftSyntax
 import SwordFoundation
 
-public struct SwordParser {
+package struct SwordParser {
   private let reporter: SwordReporter
 
-  public init(reporter: SwordReporter) {
+  package init(reporter: SwordReporter) {
     self.reporter = reporter
   }
 

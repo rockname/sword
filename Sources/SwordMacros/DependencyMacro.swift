@@ -2,12 +2,12 @@ import SwiftDiagnostics
 import SwiftSyntax
 import SwiftSyntaxMacros
 
-public struct DependencyMacro {
+struct DependencyMacro {
 
 }
 
 extension DependencyMacro: PeerMacro {
-  public static func expansion(
+  static func expansion(
     of node: AttributeSyntax,
     providingPeersOf declaration: some DeclSyntaxProtocol,
     in context: some MacroExpansionContext
