@@ -57,25 +57,6 @@ struct BindingGraphValidator {
         }
       }
     }
-    for binding in bindingsByKey.values.flatMap({ $0 }) {
-      switch binding.kind {
-      case .registration(_, _, _, let scope):
-        guard let scope else { break }
-
-        switch scope {
-        case .single:
-          detectCaptiveDependency(
-            binding: binding,
-            originalBinding: binding,
-            reports: &reports
-          )
-        case .weakReference:
-          break
-        }
-      case .componentArgument:
-        break
-      }
-    }
     for missingDependencyRequest in missingDependencyRequests {
       reports.append(
         Report(
@@ -85,27 +66,49 @@ struct BindingGraphValidator {
         )
       )
     }
-    for cycle in bindingGraph.cycles {
-      for node in cycle {
-        switch node {
-        case .component(let component):
-          reports.append(
-            Report(
-              message: "A component cycle is found",
-              severity: .error,
-              location: component.location
+    if bindingGraph.cycles.isEmpty {
+      for binding in bindingsByKey.values.flatMap({ $0 }) {
+        switch binding.kind {
+        case .registration(_, _, _, let scope):
+          guard let scope else { break }
+
+          switch scope {
+          case .single:
+            detectCaptiveDependency(
+              binding: binding,
+              originalBinding: binding,
+              reports: &reports
             )
-          )
-        case .binding(let binding):
-          reports.append(
-            Report(
-              message: "A dependency cycle is found",
-              severity: .error,
-              location: binding.location
-            )
-          )
-        case .missingBinding:
+          case .weakReference:
+            break
+          }
+        case .componentArgument:
           break
+        }
+      }
+    } else {
+      for cycle in bindingGraph.cycles {
+        for node in cycle {
+          switch node {
+          case .component(let component):
+            reports.append(
+              Report(
+                message: "A component cycle is found",
+                severity: .error,
+                location: component.location
+              )
+            )
+          case .binding(let binding):
+            reports.append(
+              Report(
+                message: "A dependency cycle is found",
+                severity: .error,
+                location: binding.location
+              )
+            )
+          case .missingBinding:
+            break
+          }
         }
       }
     }
