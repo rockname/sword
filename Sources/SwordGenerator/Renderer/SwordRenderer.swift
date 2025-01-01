@@ -1,8 +1,8 @@
 import SwiftSyntax
 import SwiftSyntaxBuilder
 
-public struct SwordRenderer {
-  public init() {}
+package struct SwordRenderer {
+  package init() {}
   func render(
     bindingGraph: BindingGraph,
     imports: [Import]

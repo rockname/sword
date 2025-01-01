@@ -1,6 +1,6 @@
 import Foundation
 
-public struct SwordReporter {
+package struct SwordReporter {
   enum Severity: String {
     case error
     case warning
@@ -8,7 +8,7 @@ public struct SwordReporter {
 
   private let fileUpdater: FileHandle
 
-  public init(fileUpdater: FileHandle) {
+  package init(fileUpdater: FileHandle) {
     self.fileUpdater = fileUpdater
   }
 

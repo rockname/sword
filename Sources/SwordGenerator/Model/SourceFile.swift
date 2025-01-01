@@ -1,11 +1,11 @@
 import Foundation
 import SwiftSyntax
 
-public struct SourceFile {
-  public let path: String
-  public let tree: SourceFileSyntax
+package struct SourceFile {
+  package let path: String
+  package let tree: SourceFileSyntax
 
-  public init(path: String, tree: SourceFileSyntax) {
+  package init(path: String, tree: SourceFileSyntax) {
     self.path = path
     self.tree = tree
   }

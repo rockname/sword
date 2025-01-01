@@ -1,9 +1,9 @@
 import Foundation
 
-public struct Key: Hashable, Codable {
-  public let value: String
+package struct Key: Hashable, Codable {
+  package let value: String
 
-  public init(type: Type) {
+  package init(type: Type) {
     self.value =
       type.value
       .replacingOccurrences(of: ".", with: "")

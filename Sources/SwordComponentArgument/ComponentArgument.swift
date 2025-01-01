@@ -2,12 +2,12 @@ import Foundation
 import SwiftSyntax
 import SwordFoundation
 
-public struct ComponentArgument: Hashable, Codable {
-  public let key: Key
-  public let type: Type
-  public let location: SourceLocation
+package struct ComponentArgument: Hashable, Codable {
+  package let key: Key
+  package let type: Type
+  package let location: SourceLocation
 
-  public init(
+  package init(
     argument: String,
     location: SourceLocation
   ) {
@@ -17,7 +17,7 @@ public struct ComponentArgument: Hashable, Codable {
     self.location = location
   }
 
-  public init?(
+  package init?(
     element: LabeledExprListSyntax.Element,
     location: SourceLocation
   ) {

@@ -3,16 +3,16 @@ import Foundation
 import SwiftParser
 import SwiftSyntax
 
-public struct SwordGenerator {
+package struct SwordGenerator {
   private let parser: SwordParser
   private let exporter: SwordExporter
 
-  public init(parser: SwordParser, exporter: SwordExporter) {
+  package init(parser: SwordParser, exporter: SwordExporter) {
     self.parser = parser
     self.exporter = exporter
   }
 
-  public func generate(
+  package func generate(
     sourceFiles: [SourceFile],
     targets: [String],
     output: String
