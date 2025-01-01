@@ -37,7 +37,11 @@ struct SwordBuildToolPlugin: BuildToolPlugin {
     sourceModule.dependencies.flatMap { dependency -> [Target] in
       switch dependency {
       case .target(let target):
-        [target] + (target.sourceModule.map(transitiveTargets(for:)) ?? [])
+        if case .macro = target.sourceModule?.kind {
+          []
+        } else {
+          [target] + (target.sourceModule.map(transitiveTargets(for:)) ?? [])
+        }
       case .product: []
       @unknown default: []
       }
