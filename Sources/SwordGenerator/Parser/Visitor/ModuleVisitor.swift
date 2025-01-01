@@ -91,12 +91,9 @@ final class ModuleVisitor: SyntaxVisitor {
       return nil
     }
 
-    guard let arguments = providerAttribute.arguments?.as(LabeledExprListSyntax.self) else {
-      return nil
-    }
-
-    let argumentByLabel = arguments.argumentByLabel
-    let scope = argumentByLabel["scopedWith"]?.as(MemberAccessExprSyntax.self)?.declName
+    let arguments = providerAttribute.arguments?.as(LabeledExprListSyntax.self)
+    let argumentByLabel = arguments?.argumentByLabel
+    let scope = argumentByLabel?["scopedWith"]?.as(MemberAccessExprSyntax.self)?.declName
 
     return ProviderAttribute(
       scope: scope.map(String.init).flatMap(Scope.init(rawValue:))
