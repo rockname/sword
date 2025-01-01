@@ -10,7 +10,7 @@ public struct AppModule {
     .shared
   }
 
-  @Provider(scopedWith: .single)
+  @Provider
   public static func jsonDecoder() -> JSONDecoder {
     JSONDecoder()
   }
