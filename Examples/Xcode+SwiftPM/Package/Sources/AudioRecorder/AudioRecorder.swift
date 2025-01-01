@@ -91,12 +91,12 @@ public final class DefaultAudioRecorder: AudioRecorder {
   }
 
   private final class Delegate: NSObject, AVAudioRecorderDelegate {
-    let onRecordingFinished: (Bool) -> Void
-    let onEncodeErrorOccur: (Error?) -> Void
+    let onRecordingFinished: @Sendable (Bool) -> Void
+    let onEncodeErrorOccur: @Sendable (Error?) -> Void
 
     init(
-      onRecordingFinished: @escaping (Bool) -> Void,
-      onEncodeErrorOccur: @escaping (Error?) -> Void
+      onRecordingFinished: @Sendable @escaping (Bool) -> Void,
+      onEncodeErrorOccur: @Sendable @escaping (Error?) -> Void
     ) {
       self.onRecordingFinished = onRecordingFinished
       self.onEncodeErrorOccur = onEncodeErrorOccur

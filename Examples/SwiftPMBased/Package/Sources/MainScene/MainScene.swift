@@ -13,7 +13,10 @@ public struct MainScene: Scene {
 
   public var body: some Scene {
     WindowGroup {
-      RootNavigation(component: component)
+      RootNavigation(
+        component: component,
+        navigationModel: RootNavigationModel(userRepository: component.userRepository)
+      )
     }
   }
 }

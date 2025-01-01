@@ -1,4 +1,4 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.0
 
 import CompilerPluginSupport
 import PackageDescription
@@ -13,7 +13,7 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/apple/swift-syntax.git",
-      from: "509.0.2"
+      from: "600.0.1"
     ),
     .package(
       url: "https://github.com/apple/swift-argument-parser",
