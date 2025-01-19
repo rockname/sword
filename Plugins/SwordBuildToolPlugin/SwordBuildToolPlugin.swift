@@ -27,7 +27,6 @@ struct SwordBuildToolPlugin: BuildToolPlugin {
         displayName: "Run SwordCommand",
         executable: try context.tool(named: "SwordCommand").path,
         arguments: arguments,
-        inputFiles: inputPaths,
         outputFiles: [output]
       )
     ]
