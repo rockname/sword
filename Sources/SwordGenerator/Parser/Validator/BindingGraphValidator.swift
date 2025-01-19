@@ -66,7 +66,7 @@ struct BindingGraphValidator {
         )
       )
     }
-    if bindingGraph.cycles.isEmpty {
+    if bindingGraph.isDAG {
       for binding in bindingsByKey.values.flatMap({ $0 }) {
         switch binding.kind {
         case .registration(_, _, _, let scope):

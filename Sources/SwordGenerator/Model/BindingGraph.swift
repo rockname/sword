@@ -26,6 +26,10 @@ final class BindingGraph {
     network.vertices
   }
 
+  var isDAG: Bool {
+    network.isDAG
+  }
+
   var cycles: [[Node]] {
     network.detectCycles()
   }
