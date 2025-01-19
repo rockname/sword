@@ -17,8 +17,12 @@ struct SwordCommand: ParsableCommand {
   mutating func run() throws {
     try loadLocalPackagesIfNeeded()
 
-    let sourceFiles = try inputs.map { path in
-      let url = URL(filePath: path)
+    // Parse files in current working directory if no inputs were specified.
+    let allInputs = inputs.isEmpty ? [""] : inputs
+    let sourceFiles = try allInputs.flatMap { input in
+      paths(in: input)
+    }
+    .map { url in
       let source = try String(contentsOf: url)
       return SourceFile(
         path: url.path(),
@@ -64,5 +68,21 @@ struct SwordCommand: ParsableCommand {
         }
       }
     }
+  }
+
+  private func paths(in path: String) -> [URL] {
+    if path.isFile {
+      return [URL(filePath: path)]
+    }
+
+    let fileManager = FileManager.default
+    let currentDirectoryPath = URL(filePath: fileManager.currentDirectoryPath)
+    let absolutePath = currentDirectoryPath.appending(path: path)
+    return fileManager.subpaths(atPath: absolutePath.path())?.compactMap { element -> URL? in
+      guard element.hasSuffix(".swift") else { return nil }
+
+      let elementAbsolutePath = currentDirectoryPath.appending(path: element)
+      return elementAbsolutePath.path().isFile ? elementAbsolutePath : nil
+    } ?? []
   }
 }
