@@ -4,6 +4,7 @@ import SwordFoundation
 struct Dependency {
   let key: Key
   let type: Type
+  let componentName: ComponentName
   let interface: Interface?
   let initializer: Initializer
   let hasMainActor: Bool
@@ -12,6 +13,7 @@ struct Dependency {
 
   init(
     type: Type,
+    componentName: ComponentName,
     interface: Interface?,
     initializer: Initializer,
     hasMainActor: Bool,
@@ -20,6 +22,7 @@ struct Dependency {
   ) {
     self.key = Key(type: interface?.asType() ?? type)
     self.type = type
+    self.componentName = componentName
     self.interface = interface
     self.initializer = initializer
     self.hasMainActor = hasMainActor

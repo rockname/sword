@@ -11,4 +11,12 @@ enum Logging {
     signposter.endInterval(name, state)
     return result
   }
+
+  static func recordInterval<R>(name: StaticString, body: () async throws -> R) async rethrows -> R {
+    let signpostID = signposter.makeSignpostID()
+    let state = signposter.beginInterval(name, id: signpostID)
+    let result = try await body()
+    signposter.endInterval(name, state)
+    return result
+  }
 }
