@@ -7,8 +7,9 @@ package struct SwordRenderer {
     bindingGraph: BindingGraph,
     imports: [Import]
   ) -> String {
+    let sortedImports = imports.sorted { $0.path < $1.path }
     let output = SourceFileSyntax {
-      for `import` in imports {
+      for `import` in sortedImports {
         ImportDeclSyntax(
           importKindSpecifier: `import`.kind.map { .identifier($0) },
           path: ImportPathComponentListSyntax {
@@ -24,14 +25,20 @@ package struct SwordRenderer {
   }
 
   private func render(_ bindingGraph: BindingGraph, for component: Component) -> CodeBlockItemListSyntax {
-    CodeBlockItemListSyntax {
+    let sortedBindings = bindingGraph.bindings(for: component).sorted {
+      $0.key.value < $1.key.value
+    }
+    let sortedSubcomponents = bindingGraph.subcomponents(for: component).sorted {
+      $0.name.value < $1.name.value
+    }
+    return CodeBlockItemListSyntax {
       ExtensionDeclSyntax(
         leadingTrivia: .newlines(2),
         extendedType: IdentifierTypeSyntax(
           name: .identifier(component.name.value)
         )
       ) {
-        for binding in bindingGraph.bindings(for: component) {
+        for binding in sortedBindings {
           if case .registration(
             let parameters,
             let calledExpression,
@@ -139,7 +146,7 @@ package struct SwordRenderer {
           }
         }
 
-        for (index, subcomponent) in bindingGraph.subcomponents(for: component).enumerated() {
+        for (index, subcomponent) in sortedSubcomponents.enumerated() {
           FunctionDeclSyntax(
             leadingTrivia: index == 0
               ? [
@@ -195,7 +202,7 @@ package struct SwordRenderer {
           }
         }
       }
-      for subcomponent in bindingGraph.subcomponents(for: component) {
+      for subcomponent in sortedSubcomponents {
         render(bindingGraph, for: subcomponent)
       }
     }
