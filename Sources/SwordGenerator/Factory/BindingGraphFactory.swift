@@ -5,13 +5,13 @@ import SwordFoundation
 
 struct BindingGraphFactory: Factory {
   private struct ResolvedBinding {
-    let bindingIndex: Int
-    let dependencyRequestResults: [DependencyRequestResult]
-
     enum DependencyRequestResult {
       case missing(dependencyRequest: DependencyRequest)
       case resolved(index: Int)
     }
+
+    let bindingIndex: Int
+    let dependencyRequestResults: [DependencyRequestResult]
   }
 
   let componentTree: ComponentTree
