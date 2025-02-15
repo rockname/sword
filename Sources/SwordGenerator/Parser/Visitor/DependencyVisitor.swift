@@ -1,26 +1,11 @@
 import SwiftSyntax
 import SwordFoundation
 
-final class DependencyVisitor: SyntaxVisitor {
+final class DependencyVisitor: SourceFileVisitor<DependencyDescriptor> {
   private struct DependencyAttribute {
     let component: String
     let interface: String?
     let scope: Scope?
-  }
-
-  private let dependencyRegistry: DependencyRegistry
-  private let locationConverter: SourceLocationConverter
-
-  init(
-    dependencyRegistry: DependencyRegistry,
-    sourceFile: SourceFile
-  ) {
-    self.dependencyRegistry = dependencyRegistry
-    self.locationConverter = SourceLocationConverter(
-      fileName: sourceFile.path,
-      tree: sourceFile.tree
-    )
-    super.init(viewMode: .sourceAccurate)
   }
 
   override func visitPost(_ node: StructDeclSyntax) {
@@ -83,6 +68,7 @@ final class DependencyVisitor: SyntaxVisitor {
       }
     let hasMainActor = attributes.first(named: "MainActor") != nil
     let dependencyDescriptor = DependencyDescriptor(
+      componentName: ComponentName(value: dependencyAttribute.component),
       type: Type(value: name.text),
       interface: dependencyAttribute.interface.map(Interface.init),
       injectedInitializers: injectedInitializers,
@@ -91,10 +77,7 @@ final class DependencyVisitor: SyntaxVisitor {
       isReferenceType: isReferenceType,
       location: location
     )
-    dependencyRegistry.register(
-      dependencyDescriptor,
-      by: ComponentName(value: dependencyAttribute.component)
-    )
+    results.append(dependencyDescriptor)
   }
 
   private func extractDependencyAttribute(from attributes: AttributeListSyntax)

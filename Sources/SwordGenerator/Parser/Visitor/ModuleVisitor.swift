@@ -1,28 +1,13 @@
 import SwiftSyntax
 import SwordFoundation
 
-final class ModuleVisitor: SyntaxVisitor {
+final class ModuleVisitor: SourceFileVisitor<ModuleDescriptor> {
   private struct ModuleAttribute {
     let component: String
   }
 
   private struct ProviderAttribute {
     let scope: Scope?
-  }
-
-  private let moduleRegistry: ModuleRegistry
-  private let locationConverter: SourceLocationConverter
-
-  init(
-    moduleRegistry: ModuleRegistry,
-    sourceFile: SourceFile
-  ) {
-    self.moduleRegistry = moduleRegistry
-    self.locationConverter = SourceLocationConverter(
-      fileName: sourceFile.path,
-      tree: sourceFile.tree
-    )
-    super.init(viewMode: .sourceAccurate)
   }
 
   override func visitPost(_ node: StructDeclSyntax) {
@@ -59,12 +44,12 @@ final class ModuleVisitor: SyntaxVisitor {
       )
     }
 
-    moduleRegistry.register(
+    results.append(
       ModuleDescriptor(
         name: node.name.text,
+        componentName: ComponentName(value: moduleAttribute.component),
         providers: providers
-      ),
-      by: ComponentName(value: moduleAttribute.component)
+      )
     )
   }
 

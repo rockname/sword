@@ -3,6 +3,7 @@ import SwiftSyntax
 import SwordFoundation
 
 struct DependencyDescriptor {
+  let componentName: ComponentName
   let type: Type
   let interface: Interface?
   let injectedInitializers: [Initializer]

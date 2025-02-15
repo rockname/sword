@@ -6,7 +6,7 @@ import SwordGenerator
 import Yams
 
 @main
-struct SwordCommand: ParsableCommand {
+struct SwordCommand: AsyncParsableCommand {
   @Option(parsing: .upToNextOption)
   var targets: [String] = []
   @Option(parsing: .upToNextOption)
@@ -14,7 +14,7 @@ struct SwordCommand: ParsableCommand {
   @Option
   var output: String
 
-  mutating func run() throws {
+  mutating func run() async throws {
     try loadLocalPackagesIfNeeded()
 
     // Parse files in current working directory if no inputs were specified.
@@ -29,15 +29,17 @@ struct SwordCommand: ParsableCommand {
         tree: Parser.parse(source: source)
       )
     }
+
+    let parser = SwordParser()
     let reporter = SwordReporter(fileUpdater: .standardOutput)
-    let parser = SwordParser(reporter: reporter)
     let renderer = SwordRenderer()
     let exporter = SwordExporter(renderer: renderer)
     let generator = SwordGenerator(
       parser: parser,
+      reporter: reporter,
       exporter: exporter
     )
-    try generator.generate(
+    try await generator.generate(
       sourceFiles: sourceFiles,
       targets: targets,
       output: output

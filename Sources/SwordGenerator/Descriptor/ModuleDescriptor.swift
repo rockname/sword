@@ -1,6 +1,7 @@
 import Foundation
 
-struct ModuleDescriptor {
+struct ModuleDescriptor: Hashable {
   let name: String
+  let componentName: ComponentName
   let providers: [ProviderDescriptor]
 }

@@ -2,37 +2,21 @@ import SwiftSyntax
 import SwiftSyntaxSupport
 import SwordComponentArgument
 
-final class SubcomponentVisitor: SyntaxVisitor {
+final class SubcomponentVisitor: SourceFileVisitor<SubcomponentDescriptor> {
   private struct SubcomponentAttribute {
     let parent: String
     let arguments: [ComponentArgument]
   }
 
-  private let componentRegistry: ComponentRegistry
-  private let locationConverter: SourceLocationConverter
-
-  init(
-    componentRegistry: ComponentRegistry,
-    sourceFile: SourceFile
-  ) {
-    self.componentRegistry = componentRegistry
-    self.locationConverter = SourceLocationConverter(
-      fileName: sourceFile.path,
-      tree: sourceFile.tree
-    )
-    super.init(viewMode: .sourceAccurate)
-  }
-
   override func visitPost(_ node: ClassDeclSyntax) {
     if let subcomponentAttribute = extractSubcomponentAttribute(from: node.attributes) {
-      componentRegistry.register(
+      results.append(
         SubcomponentDescriptor(
           name: ComponentName(value: node.name.text),
           arguments: subcomponentAttribute.arguments,
           parentName: subcomponentAttribute.parent,
           location: node.startLocation(converter: locationConverter)
-        ),
-        by: ComponentName(value: subcomponentAttribute.parent)
+        )
       )
     }
   }

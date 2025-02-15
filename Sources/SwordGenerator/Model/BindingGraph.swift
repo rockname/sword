@@ -2,7 +2,7 @@ import SwiftGraph
 import SwiftSyntax
 import SwordFoundation
 
-final class BindingGraph {
+final class BindingGraph: Sendable {
   enum Node: Equatable, Codable {
     case component(Component)
     case binding(Binding)
@@ -93,3 +93,5 @@ final class BindingGraph {
     }
   }
 }
+
+extension UnweightedGraph<BindingGraph.Node>: @retroactive @unchecked Sendable {}

@@ -3,8 +3,8 @@ import SwiftSyntax
 import SwordComponentArgument
 import SwordFoundation
 
-struct Binding: Codable {
-  enum Kind: Codable {
+struct Binding: Hashable, Codable {
+  enum Kind: Hashable, Codable {
     case registration(
       parameters: [Parameter],
       calledExpression: String,

@@ -2,7 +2,7 @@ import Foundation
 import SwiftSyntax
 import SwordFoundation
 
-struct ProviderDescriptor {
+struct ProviderDescriptor: Hashable {
   let name: String
   let isStaticFunction: Bool
   let returnType: Type?

@@ -4,104 +4,47 @@ import SwiftSyntax
 import SwordFoundation
 
 package struct SwordParser {
-  private let reporter: SwordReporter
+  struct Result {
+    var rootComponentDescriptors = [RootComponentDescriptor]()
+    var subcomponentDescriptors = [SubcomponentDescriptor]()
+    var dependencyDescriptors = [DependencyDescriptor]()
+    var moduleDescriptors = [ModuleDescriptor]()
+    var imports = [Import]()
 
-  package init(reporter: SwordReporter) {
-    self.reporter = reporter
+    mutating func merge(_ result: Result) {
+      rootComponentDescriptors += result.rootComponentDescriptors
+      subcomponentDescriptors += result.subcomponentDescriptors
+      dependencyDescriptors += result.dependencyDescriptors
+      moduleDescriptors += result.moduleDescriptors
+      imports += result.imports
+    }
   }
 
-  func parse(
-    sourceFiles: [SourceFile],
-    targets: [String]
-  ) throws -> (BindingGraph, [Import]) {
-    let componentRegistry = ComponentRegistry()
-    let dependencyRegistry = DependencyRegistry()
-    let moduleRegistry = ModuleRegistry()
-    let importRegistry = ImportRegistry()
+  package init() {
+  }
 
-    Logging.recordInterval(name: "parseSourceFiles") {
+  func parse(_ sourceFiles: [SourceFile]) async -> Result {
+    await withTaskGroup(of: Result.self) { group in
       for sourceFile in sourceFiles {
-        let visitors: [SyntaxVisitor] = [
-          ComponentVisitor(
-            componentRegistry: componentRegistry,
-            sourceFile: sourceFile
-          ),
-          SubcomponentVisitor(
-            componentRegistry: componentRegistry,
-            sourceFile: sourceFile
-          ),
-          DependencyVisitor(
-            dependencyRegistry: dependencyRegistry,
-            sourceFile: sourceFile
-          ),
-          ModuleVisitor(
-            moduleRegistry: moduleRegistry,
-            sourceFile: sourceFile
-          ),
-          ImportVisitor(
-            importRegistry: importRegistry,
-            sourceFile: sourceFile
-          ),
-        ]
-        for visitor in visitors {
-          visitor.walk(sourceFile.tree)
+        group.addTask {
+          parse(sourceFile)
         }
       }
-
-      for target in targets {
-        importRegistry.register(target)
+      var parserResult = Result()
+      for await result in group {
+        parserResult.merge(result)
       }
+      return parserResult
     }
+  }
 
-    let componentValidationResult = Logging.recordInterval(name: "makeComponentTree") {
-      ComponentValidator(componentRegistry: componentRegistry)
-        .validate()
-    }
-    let dependencyValidationResult = Logging.recordInterval(name: "makeDependencies") {
-      DependencyValidator(dependencyRegistry: dependencyRegistry)
-        .validate()
-    }
-    let moduleValidationResult = Logging.recordInterval(name: "makeModules") {
-      ModuleValidator(moduleRegistry: moduleRegistry).validate()
-    }
-    guard
-      case .valid((let component, let subcomponentsByParent)) = componentValidationResult,
-      case .valid(let dependenciesByComponentName) = dependencyValidationResult,
-      case .valid(let modulesByComponentName) = moduleValidationResult
-    else {
-      let reports = [
-        componentValidationResult.reports,
-        dependencyValidationResult.reports,
-        moduleValidationResult.reports,
-      ].flatMap { $0 }
-      for report in reports {
-        reporter.send(report)
-      }
-      exit(1)
-    }
-
-    let bindingGraph = Logging.recordInterval(name: "makeBindingGraph") {
-      let bindingGraphFactory = BindingGraphFactory(
-        subcomponentsByParent: subcomponentsByParent,
-        dependenciesByComponentName: dependenciesByComponentName,
-        modulesByComponentName: modulesByComponentName
-      )
-      let bindingGraph = bindingGraphFactory.makeBindingGraph(rootComponent: component)
-      let bindingGraphValidationResult = BindingGraphValidator(bindingGraph: bindingGraph)
-        .validate()
-      guard case .valid = bindingGraphValidationResult else {
-        for report in bindingGraphValidationResult.reports {
-          reporter.send(report)
-        }
-        exit(1)
-      }
-
-      return bindingGraph
-    }
-
-    return (
-      bindingGraph,
-      Array(importRegistry.imports)
+  private func parse(_ sourceFile: SourceFile) -> Result {
+    Result(
+      rootComponentDescriptors: ComponentVisitor(sourceFile: sourceFile).walk(),
+      subcomponentDescriptors: SubcomponentVisitor(sourceFile: sourceFile).walk(),
+      dependencyDescriptors: DependencyVisitor(sourceFile: sourceFile).walk(),
+      moduleDescriptors: ModuleVisitor(sourceFile: sourceFile).walk(),
+      imports: ImportVisitor(sourceFile: sourceFile).walk()
     )
   }
 }
