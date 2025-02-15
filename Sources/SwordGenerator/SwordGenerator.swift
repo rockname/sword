@@ -18,10 +18,12 @@ package struct SwordGenerator {
     output: String
   ) throws {
     let (bindingGraph, imports) = try parser.parse(sourceFiles: sourceFiles, targets: targets)
-    try exporter.export(
-      bindingGraph: bindingGraph,
-      imports: imports,
-      outputPath: URL(filePath: output)
-    )
+    try Logging.recordInterval(name: "exportBindingGraph") {
+      try exporter.export(
+        bindingGraph: bindingGraph,
+        imports: imports,
+        outputPath: URL(filePath: output)
+      )
+    }
   }
 }

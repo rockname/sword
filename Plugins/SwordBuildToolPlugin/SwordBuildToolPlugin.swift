@@ -9,8 +9,11 @@ struct SwordBuildToolPlugin: BuildToolPlugin {
     let targets = transitiveTargets(for: sourceModule)
     let targetByName = Dictionary(targets.map { ($0.name, $0) }, uniquingKeysWith: { (first, _) in first })
     let targetSourceModules = targetByName.values.compactMap(\.sourceModule)
-    let inputPaths = ([sourceModule] + targetSourceModules).flatMap { sourceModule in
-      sourceModule.sourceFiles(withSuffix: "swift").map(\.path)
+    let inputDirectories = ([sourceModule] + targetSourceModules).compactMap { sourceModule in
+      relativePath(
+        from: context.package.directoryURL,
+        to: URL(fileURLWithPath: sourceModule.directory.string, isDirectory: true).standardized
+      )
     }
     let output = context.pluginWorkDirectory.appending("Sword.generated.swift")
     var arguments = [String]()
@@ -18,8 +21,8 @@ struct SwordBuildToolPlugin: BuildToolPlugin {
     if !targetNames.isEmpty {
       arguments += ["--targets"] + targetNames
     }
-    if !inputPaths.isEmpty {
-      arguments += ["--inputs"] + inputPaths.map(\.string)
+    if !inputDirectories.isEmpty {
+      arguments += ["--inputs"] + inputDirectories
     }
     arguments += ["--output", output.string]
     return [
@@ -45,6 +48,17 @@ struct SwordBuildToolPlugin: BuildToolPlugin {
       @unknown default: []
       }
     }
+  }
+
+  private func relativePath(from baseURL: URL, to absoluteURL: URL) -> String? {
+    guard absoluteURL.path.hasPrefix(baseURL.path) else { return nil }
+
+    var relative = absoluteURL.path.replacingOccurrences(of: baseURL.path, with: "")
+    if relative.hasPrefix("/") {
+      relative.removeFirst()
+    }
+
+    return relative
   }
 }
 

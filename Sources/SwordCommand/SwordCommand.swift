@@ -76,12 +76,11 @@ struct SwordCommand: ParsableCommand {
     }
 
     let fileManager = FileManager.default
-    let currentDirectoryPath = URL(filePath: fileManager.currentDirectoryPath)
-    let absolutePath = currentDirectoryPath.appending(path: path)
+    let absolutePath = URL(filePath: fileManager.currentDirectoryPath).appending(path: path)
     return fileManager.subpaths(atPath: absolutePath.path())?.compactMap { element -> URL? in
       guard element.hasSuffix(".swift") else { return nil }
 
-      let elementAbsolutePath = currentDirectoryPath.appending(path: element)
+      let elementAbsolutePath = absolutePath.appending(path: element)
       return elementAbsolutePath.path().isFile ? elementAbsolutePath : nil
     } ?? []
   }
