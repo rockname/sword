@@ -34,7 +34,7 @@ final class ModuleVisitor: SourceFileVisitor<ModuleDescriptor> {
       return ProviderDescriptor(
         name: function.name.text,
         isStaticFunction: function.modifiers.contains(where: {
-          $0.as(DeclModifierSyntax.self)?.name.text == "static"
+          $0.name.text == "static"
         }),
         returnType: function.signature.returnClause.map { Type(value: "\($0.type.trimmed)") },
         parameters: parameters,

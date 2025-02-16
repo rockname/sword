@@ -15,7 +15,7 @@ struct SwordBuildToolPlugin: BuildToolPlugin {
         to: URL(fileURLWithPath: sourceModule.directory.string, isDirectory: true).standardized
       )
     }
-    let output = context.pluginWorkDirectory.appending("Sword.generated.swift")
+    let output = context.pluginWorkDirectoryURL.appending(path: "Sword.generated.swift")
     var arguments = [String]()
     let targetNames = targetByName.keys
     if !targetNames.isEmpty {
@@ -24,11 +24,11 @@ struct SwordBuildToolPlugin: BuildToolPlugin {
     if !inputDirectories.isEmpty {
       arguments += ["--inputs"] + inputDirectories
     }
-    arguments += ["--output", output.string]
+    arguments += ["--output", output.relativePath]
     return [
       .buildCommand(
         displayName: "Run SwordCommand",
-        executable: try context.tool(named: "SwordCommand").path,
+        executable: try context.tool(named: "SwordCommand").url,
         arguments: arguments,
         outputFiles: [output]
       )
@@ -74,26 +74,26 @@ extension SwordBuildToolPlugin: XcodeBuildToolPlugin {
         return false
       }
     }
-    let inputPaths = ([target] + frameworkTargets).flatMap { target in
+    let inputURLs = ([target] + frameworkTargets).flatMap { target -> [URL] in
       target.inputFiles
-        .filter { $0.type == .source && $0.path.extension == "swift" }
-        .map(\.path)
+        .filter { $0.type == .source && $0.url.pathExtension == "swift" }
+        .map { $0.url }
     }
-    let output = context.pluginWorkDirectory.appending("Sword.generated.swift")
+    let output = context.pluginWorkDirectoryURL.appending(path: "Sword.generated.swift")
     var arguments = [String]()
     if !frameworkTargets.isEmpty {
       arguments += ["--targets"] + frameworkTargets.map(\.displayName)
     }
-    if !inputPaths.isEmpty {
-      arguments += ["--inputs"] + inputPaths.map(\.string)
+    if !inputURLs.isEmpty {
+      arguments += ["--inputs"] + inputURLs.map(\.relativePath)
     }
-    arguments += ["--output", output.string]
+    arguments += ["--output", output.relativePath]
     return [
       .buildCommand(
         displayName: "Run SwordCommand",
-        executable: try context.tool(named: "SwordCommand").path,
+        executable: try context.tool(named: "SwordCommand").url,
         arguments: arguments,
-        inputFiles: inputPaths,
+        inputFiles: inputURLs,
         outputFiles: [output]
       )
     ]
