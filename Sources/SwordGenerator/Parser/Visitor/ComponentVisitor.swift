@@ -7,8 +7,8 @@ final class ComponentVisitor: SourceFileVisitor<RootComponentDescriptor> {
     let arguments: [ComponentArgument]
   }
 
-  override func visitPost(_ node: ClassDeclSyntax) {
-    guard let componentAttribute = extractComponentAttribute(from: node.attributes) else { return }
+  override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind {
+    guard let componentAttribute = extractComponentAttribute(from: node.attributes) else { return .skipChildren }
 
     results.append(
       RootComponentDescriptor(
@@ -17,6 +17,7 @@ final class ComponentVisitor: SourceFileVisitor<RootComponentDescriptor> {
         location: node.startLocation(converter: locationConverter)
       )
     )
+    return .skipChildren
   }
 
   private func extractComponentAttribute(from attributes: AttributeListSyntax)
