@@ -27,6 +27,10 @@ let package = Package(
       url: "https://github.com/davecom/SwiftGraph",
       from: "3.1.0"
     ),
+    .package(
+      url: "https://github.com/kylef/PathKit.git",
+      exact: "1.0.1"
+    ),
   ],
   targets: [
     .target(
@@ -60,6 +64,7 @@ let package = Package(
       name: "SwordCommand",
       dependencies: [
         "SwordGenerator",
+        "PathKit",
         .product(name: "SwiftSyntax", package: "swift-syntax"),
         .product(name: "SwiftParser", package: "swift-syntax"),
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
