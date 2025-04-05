@@ -1,5 +1,6 @@
 import ArgumentParser
 import Foundation
+import PathKit
 import SwiftParser
 import SwiftSyntax
 import SwordGenerator
@@ -18,14 +19,23 @@ struct SwordCommand: AsyncParsableCommand {
     try loadLocalPackagesIfNeeded()
 
     // Parse files in current working directory if no inputs were specified.
-    let allInputs = inputs.isEmpty ? [""] : inputs
-    let sourceFiles = try allInputs.flatMap { input in
-      paths(in: input)
+    let allInputs = inputs.isEmpty ? ["."] : inputs
+    let sourceFilePaths = try allInputs.flatMap { input -> [URL] in
+      let path = Path(input)
+      return if path.isFile {
+        [path.absolute().url]
+      } else {
+        try path.recursiveChildren().compactMap { child in
+          guard child.extension == "swift" else { return nil }
+
+          return child.absolute().url
+        }
+      }
     }
-    .map { url in
-      let source = try String(contentsOf: url)
+    let sourceFiles = try sourceFilePaths.map { sourceFilePath in
+      let source = try String(contentsOf: sourceFilePath, encoding: .utf8)
       return SourceFile(
-        path: url.path(),
+        path: sourceFilePath.path(),
         tree: Parser.parse(source: source)
       )
     }
@@ -47,43 +57,19 @@ struct SwordCommand: AsyncParsableCommand {
   }
 
   mutating private func loadLocalPackagesIfNeeded() throws {
-    let fileManager = FileManager.default
-    let configurationFilePath = URL(filePath: fileManager.currentDirectoryPath).appending(path: ".sword.yml")
+    let configurationPath = Path.current + ".sword.yml"
+    guard configurationPath.exists else { return }
 
-    guard fileManager.fileExists(atPath: configurationFilePath.path()) else { return }
-
-    let data = try Data(contentsOf: configurationFilePath)
+    let data = try configurationPath.read()
     let configuration = try YAMLDecoder().decode(Configuration.self, from: data)
 
     for localPackage in configuration.localPackages {
       targets.append(contentsOf: localPackage.targets)
 
-      let inputPath = URL(filePath: fileManager.currentDirectoryPath)
-        .appending(path: localPackage.path)
-        .appending(path: "Sources")
-      if let enumerator = fileManager.enumerator(atPath: inputPath.path()) {
-        for case let filePath as String in enumerator {
-          if filePath.hasSuffix(".swift") {
-            let fullFilePath = inputPath.appending(path: filePath)
-            inputs.append(fullFilePath.path())
-          }
-        }
+      let sourcesPath = Path.current + localPackage.path + "Sources"
+      for swiftFile in sourcesPath.glob("**/*.swift") {
+        inputs.append(swiftFile.string)
       }
     }
-  }
-
-  private func paths(in path: String) -> [URL] {
-    if path.isFile {
-      return [URL(filePath: path)]
-    }
-
-    let fileManager = FileManager.default
-    let absolutePath = URL(filePath: fileManager.currentDirectoryPath).appending(path: path)
-    return fileManager.subpaths(atPath: absolutePath.path())?.compactMap { element -> URL? in
-      guard element.hasSuffix(".swift") else { return nil }
-
-      let elementAbsolutePath = absolutePath.appending(path: element)
-      return elementAbsolutePath.path().isFile ? elementAbsolutePath : nil
-    } ?? []
   }
 }
