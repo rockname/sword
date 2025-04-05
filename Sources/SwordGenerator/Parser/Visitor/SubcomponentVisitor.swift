@@ -8,17 +8,18 @@ final class SubcomponentVisitor: SourceFileVisitor<SubcomponentDescriptor> {
     let arguments: [ComponentArgument]
   }
 
-  override func visitPost(_ node: ClassDeclSyntax) {
-    if let subcomponentAttribute = extractSubcomponentAttribute(from: node.attributes) {
-      results.append(
-        SubcomponentDescriptor(
-          name: ComponentName(value: node.name.text),
-          arguments: subcomponentAttribute.arguments,
-          parentName: subcomponentAttribute.parent,
-          location: node.startLocation(converter: locationConverter)
-        )
+  override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind {
+    guard let subcomponentAttribute = extractSubcomponentAttribute(from: node.attributes) else { return .skipChildren }
+
+    results.append(
+      SubcomponentDescriptor(
+        name: ComponentName(value: node.name.text),
+        arguments: subcomponentAttribute.arguments,
+        parentName: subcomponentAttribute.parent,
+        location: node.startLocation(converter: locationConverter)
       )
-    }
+    )
+    return .skipChildren
   }
 
   private func extractSubcomponentAttribute(from attributes: AttributeListSyntax)

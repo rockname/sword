@@ -9,9 +9,8 @@ final class ModuleVisitor: SourceFileVisitor<ModuleDescriptor> {
   private struct ProviderAttribute {
     let scope: Scope?
   }
-
-  override func visitPost(_ node: StructDeclSyntax) {
-    guard let moduleAttribute = extractModuleAttribute(from: node.attributes) else { return }
+  override func visit(_ node: StructDeclSyntax) -> SyntaxVisitorContinueKind {
+    guard let moduleAttribute = extractModuleAttribute(from: node.attributes) else { return .skipChildren }
 
     let providers: [ProviderDescriptor] = node.memberBlock.members.compactMap { member in
       guard
@@ -51,6 +50,7 @@ final class ModuleVisitor: SourceFileVisitor<ModuleDescriptor> {
         providers: providers
       )
     )
+    return .skipChildren
   }
 
   private func extractModuleAttribute(from attributes: AttributeListSyntax) -> ModuleAttribute? {

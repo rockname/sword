@@ -8,31 +8,34 @@ final class DependencyVisitor: SourceFileVisitor<DependencyDescriptor> {
     let scope: Scope?
   }
 
-  override func visitPost(_ node: StructDeclSyntax) {
+  override func visit(_ node: StructDeclSyntax) -> SyntaxVisitorContinueKind {
     registerDependencyIfNeeded(
       name: node.name,
       attributes: node.attributes,
       members: node.memberBlock.members,
       isReferenceType: false
     )
+    return .skipChildren
   }
 
-  override func visitPost(_ node: ClassDeclSyntax) {
+  override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind {
     registerDependencyIfNeeded(
       name: node.name,
       attributes: node.attributes,
       members: node.memberBlock.members,
       isReferenceType: true
     )
+    return .skipChildren
   }
 
-  override func visitPost(_ node: ActorDeclSyntax) {
+  override func visit(_ node: ActorDeclSyntax) -> SyntaxVisitorContinueKind {
     registerDependencyIfNeeded(
       name: node.name,
       attributes: node.attributes,
       members: node.memberBlock.members,
       isReferenceType: true
     )
+    return .skipChildren
   }
 
   private func registerDependencyIfNeeded(
