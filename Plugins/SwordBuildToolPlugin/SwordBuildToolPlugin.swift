@@ -4,15 +4,13 @@ import PackagePlugin
 @main
 struct SwordBuildToolPlugin: BuildToolPlugin {
   func createBuildCommands(context: PluginContext, target: Target) async throws -> [Command] {
-    guard let sourceModule = target.sourceModule else { return [] }
+    let dependencies = recursiveSamePackageDependencies(for: target).removingDuplicates(by: \.id)
+    let targetByName = Dictionary(dependencies.map { ($0.name, $0) }, uniquingKeysWith: { (first, _) in first })
 
-    let targets = transitiveTargets(for: sourceModule)
-    let targetByName = Dictionary(targets.map { ($0.name, $0) }, uniquingKeysWith: { (first, _) in first })
-    let targetSourceModules = targetByName.values.compactMap(\.sourceModule)
-    let inputDirectories = ([sourceModule] + targetSourceModules).compactMap { sourceModule in
-      relativePath(
-        from: context.package.directoryURL,
-        to: URL(fileURLWithPath: sourceModule.directory.string, isDirectory: true).standardized
+    let inputDirectories = dependencies.compactMap { dependency in
+      dependency.directory.string.replacingOccurrences(
+        of: context.package.directoryURL.path(),
+        with: ""
       )
     }
     let output = context.pluginWorkDirectoryURL.appending(path: "Sword.generated.swift")
@@ -35,30 +33,20 @@ struct SwordBuildToolPlugin: BuildToolPlugin {
     ]
   }
 
-  private func transitiveTargets(for sourceModule: SourceModuleTarget) -> [Target] {
-    sourceModule.dependencies.flatMap { dependency -> [Target] in
+  private func recursiveSamePackageDependencies(for target: Target) -> [Target] {
+    guard
+      let sourceModule = target.sourceModule,
+      case .generic = sourceModule.kind
+    else { return [] }
+
+    return sourceModule.dependencies.reduce([target]) { partialResult, dependency in
       switch dependency {
-      case .target(let target):
-        if case .macro = target.sourceModule?.kind {
-          []
-        } else {
-          [target] + (target.sourceModule.map(transitiveTargets(for:)) ?? [])
-        }
-      case .product: []
-      @unknown default: []
+      case .target(let dependencyTarget):
+        partialResult + recursiveSamePackageDependencies(for: dependencyTarget)
+      case .product: partialResult
+      @unknown default: partialResult
       }
     }
-  }
-
-  private func relativePath(from baseURL: URL, to absoluteURL: URL) -> String? {
-    guard absoluteURL.path.hasPrefix(baseURL.path) else { return nil }
-
-    var relative = absoluteURL.path.replacingOccurrences(of: baseURL.path, with: "")
-    if relative.hasPrefix("/") {
-      relative.removeFirst()
-    }
-
-    return relative
   }
 }
 
@@ -101,3 +89,10 @@ extension SwordBuildToolPlugin: XcodeBuildToolPlugin {
 }
 
 #endif
+
+private extension Sequence {
+  func removingDuplicates<T: Hashable>(by keyPath: KeyPath<Element, T>) -> [Element] {
+    var seen = Set<T>()
+    return filter { seen.insert($0[keyPath: keyPath]).inserted }
+  }
+}
