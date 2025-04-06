@@ -403,7 +403,7 @@ struct UserNavigation: View {
 | Assisted Injection | ✅ Supported |
 | Missing Dependency Error | ✅ Supported |
 | Duplicate Dependency Error | ✅ Supported |
-| Cycle Dependency Error | 🚧 TBD |
+| Cycle Dependency Error | ✅ Supported |
 
 # License
 This library is released under the MIT license. See [LICENSE](LICENSE) for details.
