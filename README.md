@@ -1,11 +1,12 @@
-<h1 align="center">🗡️Sword</h1>
+<h1 align="center">Sword</h1>
+<p align="center">
+<img src="assets/sword_logo.png" width=200>
+</p>
 <p align="center">A compile time dependency injection library for Swift</p>
 <p align="center">
   <a href="https://github.com/rockname/sword/actions"><img alt="build" src="https://github.com/rockname/sword/workflows/test/badge.svg"></a>
   <a href="LICENSE"><img alt="license" src="https://img.shields.io/badge/license-MIT-black.svg"></a>
 </p>
-
----
 
 # Introduction
 Sword is a compile time dependency injection library for Swift, inspired by [Dagger](https://dagger.dev/).
